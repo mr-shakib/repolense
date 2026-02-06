@@ -10,6 +10,10 @@ from .repo_structure import RepoStructure
 from .architecture_signal import ArchitectureSignal
 from .architecture_analysis_result import ArchitectureAnalysisResult
 from .quality_metrics import QualityMetrics
+from .principle_evaluation_result import (
+    PrincipleViolation,
+    PrincipleEvaluationResult,
+)
 
 __all__ = [
     'FileNode',
@@ -19,4 +23,6 @@ __all__ = [
     'ArchitectureSignal',
     'ArchitectureAnalysisResult',
     'QualityMetrics',
+    'PrincipleViolation',
+    'PrincipleEvaluationResult',
 ]
