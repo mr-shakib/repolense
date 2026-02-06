@@ -44,6 +44,29 @@
 
 #### 2. **Repository Ingestion** (Analysis Layer) ✅ COMPLETED
 **Files Created:**
+- ✅ `backend/apps/analysis/data_classes/file_node.py` - File/directory representation (76 lines)
+- ✅ `backend/apps/analysis/data_classes/commit_info.py` - Commit & contributor data (99 lines)
+- ✅ `backend/apps/analysis/data_classes/repo_structure.py` - Main repo structure (165 lines)
+- ✅ `backend/apps/analysis/ingestion/exceptions.py` - Custom exceptions (29 lines)
+- ✅ `backend/apps/analysis/ingestion/url_parser.py` - GitHub URL parser (112 lines)
+- ✅ `backend/apps/analysis/ingestion/github_client.py` - GitHub API client (121 lines)
+- ✅ `backend/apps/analysis/ingestion/github_data_fetcher.py` - Data fetcher (193 lines)
+- ✅ `backend/apps/analysis/ingestion/repo_ingestion.py` - Main service (141 lines)
+
+**What we learned:**
+- Data classes vs Django models (when to use each)
+- GitHub API integration via PyGithub
+- Facade pattern for complex subsystems
+- Single Responsibility Principle in practice
+- Why we limit commit history fetch (performance)
+- Recursive file tree traversal with depth limits
+- URL validation and parsing with regex
+- Proper exception hierarchy design
+
+---
+
+#### 2. **Repository Ingestion** (Analysis Layer) ✅ COMPLETED
+**Files Created:**
 
 **Data Classes:**
 - ✅ `backend/apps/analysis/data_classes/file_node.py` - File/directory representation (76 lines)

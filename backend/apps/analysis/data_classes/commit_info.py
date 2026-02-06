@@ -13,7 +13,8 @@ from typing import Optional
 
 
 @dataclass
-class CommitInfo: """
+class CommitInfo:
+    """
     Represents a single git commit.
     
     Used for collaboration analysis (commit frequency, ownership patterns).
