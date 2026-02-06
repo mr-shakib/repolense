@@ -35,6 +35,30 @@ class ArchitectureAnalysisResult:
     """
     signals: list[ArchitectureSignal] = field(default_factory=list)
     
+    @property
+    def primary_pattern(self) -> str:
+        """Primary pattern (highest confidence), or 'Unknown' if none detected."""
+        return self.get_primary_pattern() or "Unknown"
+    
+    @property
+    def detected_patterns(self) -> list[str]:
+        """All detected patterns (confidence >= 70)."""
+        return self.get_detected_patterns()
+    
+    @property
+    def confidence_scores(self) -> dict[str, float]:
+        """Dictionary mapping pattern names to confidence scores."""
+        return {signal.pattern: signal.confidence for signal in self.signals}
+    
+    @property
+    def evidence(self) -> dict[str, list[str]]:
+        """Dictionary mapping pattern names to evidence lists (only detected patterns)."""
+        return {
+            signal.pattern: signal.evidence
+            for signal in self.signals
+            if signal.is_detected()
+        }
+    
     def get_primary_pattern(self) -> str | None:
         """
         Get the most confident architectural pattern.

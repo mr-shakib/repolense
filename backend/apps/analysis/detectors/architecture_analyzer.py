@@ -69,22 +69,9 @@ class ArchitectureAnalyzer:
         # Run all detectors
         signals = self._run_all_detectors(repo)
         
-        # Determine primary pattern (highest confidence)
-        primary_pattern = self._determine_primary_pattern(signals)
-        
-        # Get all patterns above threshold
-        detected_patterns = self._get_detected_patterns(signals)
-        
-        # Aggregate all evidence
-        all_evidence = self._aggregate_evidence(signals)
-        
-        return ArchitectureAnalysisResult(
-            primary_pattern=primary_pattern,
-            detected_patterns=detected_patterns,
-            confidence_scores={s.pattern: s.confidence for s in signals},
-            all_signals=signals,
-            evidence=all_evidence
-        )
+        # Return result with all signals
+        # (ArchitectureAnalysisResult computes patterns and evidence from signals)
+        return ArchitectureAnalysisResult(signals=signals)
     
     def _run_all_detectors(self, repo: RepoStructure) -> list[ArchitectureSignal]:
         """
