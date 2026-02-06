@@ -10,6 +10,7 @@ Dependencies: FileNode, CommitInfo, ContributorInfo
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
+from django.utils import timezone
 
 from .file_node import FileNode
 from .commit_info import CommitInfo, ContributorInfo
@@ -161,5 +162,5 @@ class RepoStructure:
         if not self.created_at:
             return None
         
-        delta = datetime.now() - self.created_at
+        delta = timezone.now() - self.created_at
         return delta.days

@@ -22,10 +22,10 @@ urlpatterns = [
     
     # Analysis endpoints
     path('analyze/', AnalysisCreateView.as_view(), name='analysis-create'),
-    path('analyze/<int:pk>/', AnalysisDetailView.as_view(), name='analysis-detail'),
-    path('analyze/<int:analysis_id>/report/', ReportByAnalysisView.as_view(), name='analysis-report'),
+    path('analyze/<uuid:pk>/', AnalysisDetailView.as_view(), name='analysis-detail'),
+    path('analyze/<uuid:analysis_id>/report/', ReportByAnalysisView.as_view(), name='analysis-report'),
     path('analyses/', AnalysisListView.as_view(), name='analysis-list'),
     
     # Report endpoints
-    path('reports/<int:pk>/', ReportDetailView.as_view(), name='report-detail'),
+    path('reports/<uuid:pk>/', ReportDetailView.as_view(), name='report-detail'),
 ]

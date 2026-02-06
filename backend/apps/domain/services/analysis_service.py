@@ -9,8 +9,8 @@ from django.db import transaction
 from django.utils import timezone
 
 from apps.domain.models import Analysis, AnalysisStatus, Report
-from apps.analysis.ingestion import GitHubIngestionService
-from apps.analysis.detectors import ArchitectureDetector
+from apps.analysis.ingestion import RepoIngestionService
+from apps.analysis.detectors import ArchitectureAnalyzer
 from apps.analysis.analyzers import QualityAnalyzer, PrincipleEvaluator, CollaborationAnalyzer
 
 
@@ -22,8 +22,8 @@ class AnalysisService:
     """
     
     def __init__(self):
-        self.github_service = GitHubIngestionService()
-        self.architecture_detector = ArchitectureDetector()
+        # Note: RepoIngestionService is created per request to support custom tokens
+        self.architecture_detector = ArchitectureAnalyzer()
         self.quality_analyzer = QualityAnalyzer()
         self.principle_evaluator = PrincipleEvaluator()
         self.collaboration_analyzer = CollaborationAnalyzer()
@@ -31,10 +31,9 @@ class AnalysisService:
     @transaction.atomic
     def analyze_repository(self, repo_url: str, github_token: Optional[str] = None) -> Analysis:
         """Analyze a GitHub repository. Returns Analysis object."""
-        owner, repo_name = self._parse_repo_url(repo_url)
         
         analysis = Analysis.objects.create(
-            repository_url=repo_url,
+            repo_url=repo_url,
             status=AnalysisStatus.PENDING,
             started_at=timezone.now(),
         )
@@ -43,20 +42,19 @@ class AnalysisService:
             analysis.status = AnalysisStatus.IN_PROGRESS
             analysis.save()
             
-            # Ingest repository data
-            repo_structure = self.github_service.ingest(
-                owner=owner, repo_name=repo_name, token=github_token
-            )
+            # Ingest repository data (create service with token for this request)
+            github_service = RepoIngestionService(github_token=github_token)
+            repo_structure = github_service.ingest_repository(repo_url)
             
             # Run all analyzers
-            arch_result = self.architecture_detector.detect(repo_structure)
+            arch_result = self.architecture_detector.analyze(repo_structure)
             quality_result = self.quality_analyzer.analyze(repo_structure)
             principles_result = self.principle_evaluator.evaluate(repo_structure)
             collab_result = self.collaboration_analyzer.analyze(repo_structure)
             
             # Calculate overall score
             overall = self._calc_overall_score(
-                quality_result.quality_score,
+                quality_result.overall_quality_score,
                 principles_result.principle_score,
                 collab_result.collaboration_score,
             )
@@ -64,25 +62,36 @@ class AnalysisService:
             # Update analysis
             analysis.status = AnalysisStatus.COMPLETED
             analysis.completed_at = timezone.now()
-            analysis.overall_score = overall
             analysis.save()
             
-            # Create report
+            # Calculate architecture score from primary pattern confidence
+            primary_signal = arch_result.get_signal_by_pattern(arch_result.primary_pattern) if arch_result.primary_pattern else None
+            architecture_score = primary_signal.confidence if primary_signal else 0.0
+            
+            # Create report with proper field mapping
             Report.objects.create(
                 analysis=analysis,
-                repository_name=repo_structure.name,
-                repository_owner=repo_structure.owner,
-                primary_language=repo_structure.primary_language,
-                stars=repo_structure.stars,
-                forks=repo_structure.forks,
-                architecture_patterns=arch_result.detected_patterns,
-                quality_score=quality_result.quality_score,
-                complexity_metrics=quality_result.to_dict(),
-                principle_score=principles_result.principle_score,
-                principle_violations=principles_result.to_dict(),
-                collaboration_score=collab_result.collaboration_score,
-                collaboration_metrics=collab_result.to_dict(),
                 overall_score=overall,
+                architecture_score=architecture_score,
+                quality_score=quality_result.overall_quality_score,
+                principles_score=principles_result.principle_score,
+                collaboration_score=collab_result.collaboration_score,
+                insights={},  # To be populated by AI service later
+                raw_data={
+                    'repository': {
+                        'name': repo_structure.name,
+                        'owner': repo_structure.owner,
+                        'url': repo_structure.url,
+                        'primary_language': repo_structure.primary_language,
+                        'stars': repo_structure.stars,
+                        'forks': repo_structure.forks,
+                        'description': repo_structure.description,
+                    },
+                    'architecture': arch_result.to_dict(),
+                    'quality': quality_result.to_dict(),
+                    'principles': principles_result.to_dict(),
+                    'collaboration': collab_result.to_dict(),
+                }
             )
             
             return analysis

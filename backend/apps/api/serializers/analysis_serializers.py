@@ -22,15 +22,14 @@ class AnalysisSerializer(serializers.ModelSerializer):
         model = Analysis
         fields = [
             'id',
-            'repository_url',
+            'repo_url',
             'status',
             'status_display',
-            'overall_score',
             'started_at',
             'completed_at',
             'error_message',
         ]
-        read_only_fields = ['id', 'status', 'overall_score', 'started_at', 'completed_at', 'error_message']
+        read_only_fields = ['id', 'status', 'started_at', 'completed_at', 'error_message']
 
 
 class AnalysisCreateSerializer(serializers.Serializer):
@@ -59,24 +58,48 @@ class ReportSerializer(serializers.ModelSerializer):
     """
     analysis = AnalysisSerializer(read_only=True)
     
+    # Add computed fields from raw_data for convenience
+    repository = serializers.SerializerMethodField()
+    architecture = serializers.SerializerMethodField()
+    quality = serializers.SerializerMethodField()
+    principles = serializers.SerializerMethodField()
+    collaboration = serializers.SerializerMethodField()
+    
     class Meta:
         model = Report
         fields = [
             'id',
             'analysis',
-            'repository_name',
-            'repository_owner',
-            'primary_language',
-            'stars',
-            'forks',
-            'architecture_patterns',
-            'quality_score',
-            'complexity_metrics',
-            'principle_score',
-            'principle_violations',
-            'collaboration_score',
-            'collaboration_metrics',
             'overall_score',
+            'architecture_score',
+            'quality_score',
+            'principles_score',
+            'collaboration_score',
+            'repository',
+            'architecture',
+            'quality',
+            'principles',
+            'collaboration',
+            'insights',
             'created_at',
         ]
-        read_only_fields = '__all__'
+    
+    def get_repository(self, obj):
+        """Extract repository info from raw_data."""
+        return obj.raw_data.get('repository', {})
+    
+    def get_architecture(self, obj):
+        """Extract architecture analysis from raw_data."""
+        return obj.raw_data.get('architecture', {})
+    
+    def get_quality(self, obj):
+        """Extract quality metrics from raw_data."""
+        return obj.raw_data.get('quality', {})
+    
+    def get_principles(self, obj):
+        """Extract principles evaluation from raw_data."""
+        return obj.raw_data.get('principles', {})
+    
+    def get_collaboration(self, obj):
+        """Extract collaboration metrics from raw_data."""
+        return obj.raw_data.get('collaboration', {})

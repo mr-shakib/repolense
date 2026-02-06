@@ -7,6 +7,7 @@ Layer: Analysis Layer
 """
 
 from datetime import datetime
+from django.utils import timezone
 from apps.analysis.data_classes import RepoStructure, CollaborationMetrics, ContributorStats
 
 
@@ -95,7 +96,7 @@ class CollaborationAnalyzer:
         if not repo.commits or not repo.created_at:
             return 0.0
         
-        age_days = (datetime.now() - repo.created_at).days
+        age_days = (timezone.now() - repo.created_at).days
         if age_days == 0:
             age_days = 1
         
