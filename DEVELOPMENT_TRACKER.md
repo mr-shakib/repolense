@@ -98,22 +98,44 @@
 
 ---
 
-#### 3. **Architecture Detection** (Analysis Layer)
-**Files to Create:**
-- `backend/apps/analysis/detectors/architecture_detector.py`
-- `backend/apps/analysis/data_classes/architecture_signals.py`
+#### 3. **Architecture Detection** (Analysis Layer) ✅ COMPLETED
+**Files Created:**
 
-**Features:**
-- Detect MVC pattern
-- Detect Clean Architecture
-- Detect Layered Architecture
-- Detect Microservices patterns
-- Return confidence scores
+**Data Classes:**
+- ✅ `backend/apps/analysis/data_classes/architecture_signal.py` - Single pattern detection result (110 lines)
+- ✅ `backend/apps/analysis/data_classes/architecture_analysis_result.py` - Aggregated results (119 lines)
 
-**What we'll learn:**
-- Pattern recognition algorithms
-- Confidence scoring
-- File structure analysis
+**Detectors:**
+- ✅ `backend/apps/analysis/detectors/base_detector.py` - Abstract base detector (125 lines)
+- ✅ `backend/apps/analysis/detectors/mvc_detector.py` - MVC pattern detector (78 lines)
+- ✅ `backend/apps/analysis/detectors/clean_architecture_detector.py` - Clean Architecture detector (79 lines)
+- ✅ `backend/apps/analysis/detectors/layered_detector.py` - Layered/N-Tier detector (81 lines)
+- ✅ `backend/apps/analysis/detectors/feature_based_detector.py` - Feature-based/modular detector (98 lines)
+- ✅ `backend/apps/analysis/detectors/architecture_analyzer.py` - Main orchestrator (163 lines)
+
+**What we learned:**
+- **Confidence Scoring vs Boolean Detection**: Why percentage confidence (0-100) beats true/false
+- **Multiple Small Detectors**: Each detector focused on ONE pattern (Single Responsibility)
+- **Pattern Recognition Algorithms**: Folder-based detection with weighted scoring
+- **MVC Pattern**: models/ + views/ + controllers/ structure (Rails, Laravel, Django)
+- **Clean Architecture**: domain/ + application/ + infrastructure/ layers (Uncle Bob)
+- **Layered Architecture**: presentation/ + business/ + data/ layers (N-Tier)
+- **Feature-Based Architecture**: Vertical slicing by business capability (modular monoliths)
+- **Strategy Pattern**: Different detectors following same interface
+- **Orchestrator Pattern**: ArchitectureAnalyzer runs all detectors and aggregates results
+
+**Key Architectural Decisions:**
+1. **Confidence scores**: Captures uncertainty, allows multiple patterns to coexist
+2. **Evidence lists**: Explainability - why this pattern was detected
+3. **Folder-based detection**: Simple, fast, no AST parsing needed (Stage 1 MVP)
+4. **Detection threshold (30%)**: Filters weak signals from final results
+5. **Weighted scoring**: More important folders get more points (models=35, routes=5 in MVC)
+6. **BaseDetector utilities**: Shared folder-checking logic to reduce duplication
+
+**Alternative Approaches Considered:**
+- **LLM-only detection**: More accurate but slow and expensive (Stage 2)
+- **Import analysis**: AST parsing for dependency patterns (future enhancement)
+- **ML classifier**: Requires training data and feature engineering (overkill for MVP)
 
 ---
 
