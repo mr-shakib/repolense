@@ -11,6 +11,7 @@ from .quality_analyzer import QualityAnalyzer
 from .solid_analyzer import SOLIDAnalyzer
 from .code_smell_detector import CodeSmellDetector
 from .principle_evaluator import PrincipleEvaluator
+from .collaboration_analyzer import CollaborationAnalyzer
 
 __all__ = [
     'ComplexityAnalyzer',
@@ -20,4 +21,5 @@ __all__ = [
     'SOLIDAnalyzer',
     'CodeSmellDetector',
     'PrincipleEvaluator',
+    'CollaborationAnalyzer',
 ]

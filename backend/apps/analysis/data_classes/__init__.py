@@ -14,6 +14,10 @@ from .principle_evaluation_result import (
     PrincipleViolation,
     PrincipleEvaluationResult,
 )
+from .collaboration_metrics import (
+    ContributorStats,
+    CollaborationMetrics,
+)
 
 __all__ = [
     'FileNode',
@@ -25,4 +29,6 @@ __all__ = [
     'QualityMetrics',
     'PrincipleViolation',
     'PrincipleEvaluationResult',
+    'ContributorStats',
+    'CollaborationMetrics',
 ]
