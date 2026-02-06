@@ -1,0 +1,9 @@
+"""Django app configuration for the Analysis layer."""
+
+from django.apps import AppConfig
+
+
+class AnalysisConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'apps.analysis'
+    verbose_name = 'Analysis Layer'
