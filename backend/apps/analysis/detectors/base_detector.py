@@ -71,6 +71,31 @@ class BaseDetector(ABC):
         
         return False
 
+    def has_path_pattern(self, repo: RepoStructure, pattern: str) -> bool:
+        """
+        Check if any file path contains the specified pattern.
+        
+        More flexible than has_folder() - can match partial paths like "apps/domain".
+        
+        Args:
+            repo: Repository structure
+            pattern: Path pattern to search for (e.g., "apps/domain")
+            
+        Returns:
+            True if pattern found in any path
+            
+        Example:
+            >>> self.has_path_pattern(repo, "apps/domain")  # matches "backend/apps/domain/models.py"
+            True
+        """
+        pattern_lower = pattern.lower()
+        
+        for file_node in repo.files:
+            if pattern_lower in file_node.path.lower():
+                return True
+        
+        return False
+
     def has_any_folder(self, repo: RepoStructure, folder_names: list[str]) -> bool:
         """
         Check if repository has any of the specified folders.

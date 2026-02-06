@@ -54,7 +54,7 @@ class CleanArchitectureDetector(BaseDetector):
         # Recognize both traditional and Django patterns
         has_domain = (
             self.has_any_folder(repo, ["domain", "entities", "core"]) or
-            self.has_folder(repo, "apps/domain")  # Django Clean Architecture
+            self.has_path_pattern(repo, "apps/domain")  # Django Clean Architecture
         )
         if has_domain:
             confidence += 40
@@ -65,7 +65,7 @@ class CleanArchitectureDetector(BaseDetector):
         # Recognize Django services pattern
         has_application = (
             self.has_any_folder(repo, ["application", "usecases", "use_cases"]) or
-            self.has_folder(repo, "apps/domain/services")  # Django services
+            self.has_path_pattern(repo, "apps/domain/services")  # Django services
         )
         if has_application:
             confidence += 30
@@ -76,7 +76,7 @@ class CleanArchitectureDetector(BaseDetector):
         # Recognize Django analysis/ingestion as infrastructure
         has_infrastructure = (
             self.has_folder(repo, "infrastructure") or
-            self.has_folder(repo, "apps/analysis")  # Django infrastructure
+            self.has_path_pattern(repo, "apps/analysis")  # Django infrastructure
         )
         if has_infrastructure:
             confidence += 20
@@ -87,7 +87,7 @@ class CleanArchitectureDetector(BaseDetector):
         # Recognize Django API as adapters layer
         has_interfaces = (
             self.has_any_folder(repo, ["interfaces", "adapters", "ports"]) or
-            self.has_folder(repo, "apps/api")  # Django HTTP adapters
+            self.has_path_pattern(repo, "apps/api")  # Django HTTP adapters
         )
         if has_interfaces:
             confidence += 10
