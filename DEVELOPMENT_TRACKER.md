@@ -42,23 +42,36 @@
 
 ---
 
-#### 2. **Repository Ingestion** (Analysis Layer)
-**Files to Create:**
-- `backend/apps/analysis/data_classes/repo_structure.py` - Data structures
-- `backend/apps/analysis/ingestion/repo_ingestion.py` - GitHub fetching
+#### 2. **Repository Ingestion** (Analysis Layer) ✅ COMPLETED
+**Files Created:**
 
-**Features:**
-- Accept GitHub URL
-- Validate repository access
-- Extract file tree
-- Parse languages used
-- Get commit history
-- List contributors
+**Data Classes:**
+- ✅ `backend/apps/analysis/data_classes/file_node.py` - File/directory representation (76 lines)
+- ✅ `backend/apps/analysis/data_classes/commit_info.py` - Commit and contributor data (99 lines)
+- ✅ `backend/apps/analysis/data_classes/repo_structure.py` - Main repo structure (165 lines)
 
-**What we'll learn:**
-- Working with GitHub API
-- Data class design
-- Error handling patterns
+**Ingestion Services:**
+- ✅ `backend/apps/analysis/ingestion/exceptions.py` - Custom exceptions (29 lines)
+- ✅ `backend/apps/analysis/ingestion/url_parser.py` - GitHub URL validation (112 lines)
+- ✅ `backend/apps/analysis/ingestion/github_client.py` - GitHub API connection (121 lines)
+- ✅ `backend/apps/analysis/ingestion/github_data_fetcher.py` - Data fetching logic (193 lines)
+- ✅ `backend/apps/analysis/ingestion/repo_ingestion.py` - Main orchestrator (140 lines)
+
+**What we learned:**
+- **Data Classes vs Models**: When to use temporary data structures vs persistent database models
+- **Single Responsibility Principle**: Splitting large classes into focused components
+- **Facade Pattern**: RepoIngestionService provides simple interface to complex subsystem
+- **Error Handling**: Custom exception hierarchies for better error messages
+- **API Rate Limits**: GitHub authentication and rate limit management
+- **Separation of Concerns**: URL parsing, API calls, and orchestration in separate files
+- **Recursive Algorithms**: Building file trees with depth limits
+
+**Key Architectural Decisions:**
+1. **GitHub API over git clone**: Security, performance, and disk space considerations
+2. **PyGithub library**: Type safety and automatic rate limit handling
+3. **Data classes over dicts**: Better type hints and IDE support
+4. **Limit commit history**: Balance between data richness and API costs
+5. **Split into 8 small files**: Strict adherence to 150-200 line rule
 
 ---
 
