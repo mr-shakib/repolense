@@ -32,8 +32,8 @@ class ArchitectureSignal:
         
     Confidence score interpretation:
         0-39: Pattern not detected
-        40-69: Weak/partial pattern presence
-        70-89: Strong pattern presence
+        40-49: Weak pattern presence
+        50-89: Strong pattern presence (detected)
         90-100: Textbook implementation
         
     Example:
@@ -60,18 +60,18 @@ class ArchitectureSignal:
         Check if pattern is detected with reasonable confidence.
         
         Returns:
-            True if confidence >= 70 (strong evidence)
+            True if confidence >= 50 (strong evidence)
         """
-        return self.confidence >= 70.0
+        return self.confidence >= 50.0
     
     def is_weak_detection(self) -> bool:
         """
         Check if pattern shows weak/partial presence.
         
         Returns:
-            True if confidence is between 40-69
+            True if confidence is between 40-49
         """
-        return 40.0 <= self.confidence < 70.0
+        return 40.0 <= self.confidence < 50.0
     
     def get_confidence_level(self) -> str:
         """
@@ -87,7 +87,7 @@ class ArchitectureSignal:
         """
         if self.confidence >= 90:
             return "Very Strong"
-        elif self.confidence >= 70:
+        elif self.confidence >= 50:
             return "Strong"
         elif self.confidence >= 40:
             return "Weak"

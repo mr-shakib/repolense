@@ -20,6 +20,11 @@ class CleanArchitectureDetector(BaseDetector):
     - infrastructure/ (external concerns, outermost layer)
     - interfaces/ or adapters/ (dependency inversion)
     
+    Django Clean Architecture recognition:
+    - apps/domain/ (business logic layer)
+    - apps/api/ (adapter layer for HTTP)
+    - apps/*/services/ (use case layer)
+    
     Key principle: Dependencies point inward
     - Infrastructure depends on domain (NOT vice versa)
     - Strict layer isolation
@@ -46,28 +51,44 @@ class CleanArchitectureDetector(BaseDetector):
         indicators = {}
         
         # Core domain layer (innermost)
-        has_domain = self.has_any_folder(repo, ["domain", "entities", "core"])
+        # Recognize both traditional and Django patterns
+        has_domain = (
+            self.has_any_folder(repo, ["domain", "entities", "core"]) or
+            self.has_folder(repo, "apps/domain")  # Django Clean Architecture
+        )
         if has_domain:
             confidence += 40
             evidence.append("Has domain/entities layer (core business logic)")
             indicators['has_domain'] = True
         
         # Application/Use case layer
-        has_application = self.has_any_folder(repo, ["application", "usecases", "use_cases"])
+        # Recognize Django services pattern
+        has_application = (
+            self.has_any_folder(repo, ["application", "usecases", "use_cases"]) or
+            self.has_folder(repo, "apps/domain/services")  # Django services
+        )
         if has_application:
             confidence += 30
             evidence.append("Has application/usecases layer")
             indicators['has_application'] = True
         
         # Infrastructure layer (outermost)
-        has_infrastructure = self.has_folder(repo, "infrastructure")
+        # Recognize Django analysis/ingestion as infrastructure
+        has_infrastructure = (
+            self.has_folder(repo, "infrastructure") or
+            self.has_folder(repo, "apps/analysis")  # Django infrastructure
+        )
         if has_infrastructure:
             confidence += 20
             evidence.append("Has infrastructure layer (external concerns)")
             indicators['has_infrastructure'] = True
         
         # Dependency inversion indicators
-        has_interfaces = self.has_any_folder(repo, ["interfaces", "adapters", "ports"])
+        # Recognize Django API as adapters layer
+        has_interfaces = (
+            self.has_any_folder(repo, ["interfaces", "adapters", "ports"]) or
+            self.has_folder(repo, "apps/api")  # Django HTTP adapters
+        )
         if has_interfaces:
             confidence += 10
             evidence.append("Has interfaces/adapters (dependency inversion)")

@@ -34,6 +34,62 @@ class GitHubDataFetcher:
     MAX_COMMITS = 100  # Limit commit history
     MAX_FILE_DEPTH = 10  # Prevent infinite recursion
     
+    # Files/directories to exclude from analysis (generated/build artifacts)
+    EXCLUDED_PATHS = {
+        'node_modules',
+        '__pycache__',
+        '.git',
+        'venv',
+        'env',
+        '.venv',
+        'dist',
+        'build',
+        '.next',
+        '.nuxt',
+        'coverage',
+        '.pytest_cache',
+        '.mypy_cache',
+        'vendor',
+        'target',  # Rust/Java
+    }
+    
+    # File patterns to exclude
+    EXCLUDED_FILES = {
+        'package-lock.json',
+        'yarn.lock',
+        'pnpm-lock.yaml',
+        'poetry.lock',
+        'Pipfile.lock',
+        'Gemfile.lock',
+        'composer.lock',
+        'Cargo.lock',
+    }
+    
+    @staticmethod
+    def should_exclude_path(path: str) -> bool:
+        """
+        Check if path should be excluded from analysis.
+        
+        Args:
+            path: File or directory path
+            
+        Returns:
+            True if path should be excluded
+        """
+        path_parts = path.split('/')
+        
+        # Check if any part of path matches excluded directories
+        for part in path_parts:
+            if part in GitHubDataFetcher.EXCLUDED_PATHS:
+                return True
+        
+        # Check if filename matches excluded files
+        filename = path_parts[-1] if path_parts else ""
+        if filename in GitHubDataFetcher.EXCLUDED_FILES:
+            return True
+        
+        return False
+    
     def fetch_file_tree(
         self,
         repo: Repository,
@@ -73,6 +129,10 @@ class GitHubDataFetcher:
                 contents = [contents]
             
             for content in contents:
+                # Skip excluded paths (generated files, build artifacts)
+                if self.should_exclude_path(content.path):
+                    continue
+                
                 # Extract extension
                 extension = None
                 if content.type == "file" and "." in content.name:
