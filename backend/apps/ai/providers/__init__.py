@@ -40,12 +40,30 @@ def get_ai_provider(
         ValueError: If provider not supported or API key missing
     """
     if provider_name is None:
-        provider_name = os.getenv('AI_PROVIDER', 'groq').lower()
+        # Try to get from Django settings first, then environment
+        try:
+            from django.conf import settings
+            provider_name = getattr(settings, 'AI_PROVIDER', None)
+        except:
+            pass
+        
+        if not provider_name:
+            provider_name = os.getenv('AI_PROVIDER', 'groq').lower()
     
     provider_name = provider_name.lower()
     
     if provider_name == 'groq':
-        api_key = os.getenv('GROQ_API_KEY')
+        # Try Django settings first
+        api_key = None
+        try:
+            from django.conf import settings
+            api_key = getattr(settings, 'GROQ_API_KEY', None)
+        except:
+            pass
+        
+        if not api_key:
+            api_key = os.getenv('GROQ_API_KEY')
+        
         if not api_key:
             raise ValueError("GROQ_API_KEY environment variable not set")
         return GroqProvider(api_key=api_key)

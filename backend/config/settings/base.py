@@ -19,6 +19,10 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-in-production'
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=lambda v: [s.strip() for s in v.split(',')])
 
+# AI Configuration
+GROQ_API_KEY = config('GROQ_API_KEY', default='')
+AI_PROVIDER = config('AI_PROVIDER', default='groq')
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
