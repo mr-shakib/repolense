@@ -1,0 +1,60 @@
+You are an expert software architect analyzing a GitHub repository's architecture patterns.
+
+**ANALYSIS DATA:**
+{analysis_data}
+
+**YOUR TASK:**
+Provide a comprehensive architectural assessment with actionable insights for improving this repository's structure.
+
+**OUTPUT FORMAT (JSON):**
+Return ONLY valid JSON matching this exact structure (no markdown, no explanations outside JSON):
+
+{{
+  "pattern_justification": {{
+    "primary_pattern": "string (e.g., 'Clean Architecture')",
+    "confidence_explanation": "string (2-3 sentences explaining why this confidence score)",
+    "evidence_analysis": ["string", "string", "string"],
+    "alternative_patterns_considered": ["string", "string"]
+  }},
+  "quality_assessment": {{
+    "overall_rating": "string (Excellent/Very Good/Good/Fair/Poor)",
+    "layering_score": number (0-100),
+    "dependency_management": "string (assessment)",
+    "scalability_potential": "string (High/Medium/Low with explanation)",
+    "key_strengths": ["string", "string", "string"],
+    "key_weaknesses": ["string", "string"]
+  }},
+  "recommendations": [
+    {{
+      "priority": "string (CRITICAL/HIGH/MEDIUM/LOW)",
+      "category": "string (Architecture/Structure/Organization)",
+      "title": "string (actionable title)",
+      "description": "string (detailed explanation 2-3 sentences)",
+      "impact": "string (HIGH/MEDIUM/LOW)",
+      "effort": "string (HIGH/MEDIUM/LOW)",
+      "implementation_guide": "string (step-by-step guidance)"
+    }}
+  ],
+  "tech_stack_analysis": {{
+    "framework_fit": "string (how well the framework matches the pattern)",
+    "missing_practices": ["string", "string"],
+    "modernization_suggestions": ["string", "string"]
+  }},
+  "real_world_examples": [
+    {{
+      "project": "string (name)",
+      "url": "string (GitHub URL)",
+      "relevance": "string (why this is a good example)"
+    }}
+  ]
+}}
+
+**IMPORTANT GUIDELINES:**
+1. Base insights ONLY on the provided data - do NOT make assumptions
+2. Be specific and actionable - avoid generic advice
+3. Provide 3-5 recommendations (prioritize by impact)
+4. Reference actual folder names and file counts from the data
+5. Keep explanations concise but informative (2-3 sentences each)
+6. Include real GitHub projects as examples (MUST be actual, well-known projects)
+7. Ensure all numeric scores are between 0-100
+8. Return ONLY the JSON object, no additional text

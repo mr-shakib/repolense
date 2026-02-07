@@ -47,7 +47,7 @@ class GroqProvider(BaseAIProvider):
             api_key: Groq API key (from https://console.groq.com)
             **kwargs: Optional configuration (timeout, max_retries, default_model)
         """
-        super().__init__(api_key, **kwargs)
+        self.api_key = api_key
         self.client = Groq(api_key=api_key)
         self.timeout = kwargs.get('timeout', self.TIMEOUT_SECONDS)
         self.max_retries = kwargs.get('max_retries', self.MAX_RETRIES)
