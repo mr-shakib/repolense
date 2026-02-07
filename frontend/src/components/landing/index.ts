@@ -1,0 +1,9 @@
+export { default as Header } from './Header';
+export { default as Hero } from './Hero';
+export { default as ProblemStatement } from './ProblemStatement';
+export { default as HowItWorks } from './HowItWorks';
+export { default as WhatItAnalyzes } from './WhatItAnalyzes';
+export { default as TrustPhilosophy } from './TrustPhilosophy';
+export { default as SampleInsight } from './SampleInsight';
+export { default as FinalCTA } from './FinalCTA';
+export { default as Footer } from './Footer';
