@@ -12,6 +12,10 @@ from apps.domain.models import Analysis, AnalysisStatus, Report
 from apps.analysis.ingestion import RepoIngestionService
 from apps.analysis.detectors import ArchitectureAnalyzer
 from apps.analysis.analyzers import QualityAnalyzer, PrincipleEvaluator, CollaborationAnalyzer
+from apps.ai.services import AIReasoningService
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class AnalysisService:
@@ -27,6 +31,7 @@ class AnalysisService:
         self.quality_analyzer = QualityAnalyzer()
         self.principle_evaluator = PrincipleEvaluator()
         self.collaboration_analyzer = CollaborationAnalyzer()
+        self.ai_service = AIReasoningService()
     
     @transaction.atomic
     def analyze_repository(self, repo_url: str, github_token: Optional[str] = None) -> Analysis:
@@ -68,6 +73,53 @@ class AnalysisService:
             primary_signal = arch_result.get_signal_by_pattern(arch_result.primary_pattern) if arch_result.primary_pattern else None
             architecture_score = primary_signal.confidence if primary_signal else 0.0
             
+            # Prepare data for AI insights generation
+            architecture_data = arch_result.to_dict()
+            quality_data = quality_result.to_dict()
+            principles_data = principles_result.to_dict()
+            collaboration_data = collab_result.to_dict()
+            
+            # Generate AI insights
+            logger.info(f"Generating AI insights for {repo_url}")
+            ai_results = self.ai_service.generate_all_insights(
+                architecture_data=architecture_data,
+                quality_data=quality_data,
+                principles_data=principles_data,
+                collaboration_data=collaboration_data
+            )
+            
+            # Extract AI insights
+            insights = {}
+            if ai_results['architecture'].success:
+                insights['architecture'] = ai_results['architecture'].content
+            if ai_results['quality'].success:
+                insights['quality'] = ai_results['quality'].content
+            if ai_results['principles'].success:
+                insights['principles'] = ai_results['principles'].content
+            if ai_results['collaboration'].success:
+                insights['collaboration'] = ai_results['collaboration'].content
+            
+            # Extract executive summary and developer guide
+            executive_summary = (
+                ai_results['executive_summary'].content.get('final_verdict', '')
+                if ai_results['executive_summary'].success else ''
+            )
+            
+            developer_guide = (
+                ai_results['developer_guide'].content
+                if ai_results['developer_guide'].success else {}
+            )
+            
+            # Extract hiring recommendation
+            hire_recommendation = ''
+            if ai_results['executive_summary'].success:
+                candidate_data = ai_results['executive_summary'].content.get('candidate_assessment', {})
+                hire_recommendation = candidate_data.get('hire_recommendation', '')
+            
+            # Calculate totals
+            total_tokens = sum(r.tokens_used for r in ai_results.values())
+            total_processing_ms = sum(r.processing_time_ms for r in ai_results.values())
+            
             # Create report with proper field mapping
             Report.objects.create(
                 analysis=analysis,
@@ -76,7 +128,13 @@ class AnalysisService:
                 quality_score=quality_result.overall_quality_score,
                 principles_score=principles_result.principle_score,
                 collaboration_score=collab_result.collaboration_score,
-                insights={},  # To be populated by AI service later
+                insights=insights,
+                ai_executive_summary=executive_summary,
+                ai_developer_guide=developer_guide,
+                ai_hire_recommendation=hire_recommendation,
+                ai_total_tokens=total_tokens,
+                ai_processing_time_ms=total_processing_ms,
+                ai_provider_used='groq',  # Get from env in production
                 raw_data={
                     'repository': {
                         'name': repo_structure.name,

@@ -82,6 +82,51 @@ class Report(models.Model):
         help_text="AI-generated insights and recommendations"
     )
     
+    ai_executive_summary = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Executive summary with hiring recommendation"
+    )
+    
+    ai_developer_guide = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text="Personalized developer improvement roadmap"
+    )
+    
+    ai_hire_recommendation = models.CharField(
+        max_length=50,
+        blank=True,
+        default='',
+        help_text="Hiring recommendation: Strong Yes/Yes/Maybe/No/Strong No"
+    )
+    
+    ai_confidence_score = models.FloatField(
+        validators=[MinValueValidator(0.0), MaxValueValidator(1.0)],
+        null=True,
+        blank=True,
+        help_text="AI confidence in assessment (0.0-1.0)"
+    )
+    
+    ai_processing_time_ms = models.FloatField(
+        null=True,
+        blank=True,
+        help_text="Total AI processing time in milliseconds"
+    )
+    
+    ai_total_tokens = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text="Total tokens used across all AI calls"
+    )
+    
+    ai_provider_used = models.CharField(
+        max_length=50,
+        blank=True,
+        default='',
+        help_text="AI provider used (groq, openai, anthropic)"
+    )
+    
     # Raw analysis data
     raw_data = models.JSONField(
         default=dict,
