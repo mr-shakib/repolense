@@ -1,7 +1,7 @@
 /**
  * API Response Types
  * 
- * These types define the shape of data returned from the backend API.
+ * These types match the Django backend response structure.
  */
 
 export interface HealthCheckResponse {
@@ -12,7 +12,7 @@ export interface HealthCheckResponse {
 
 export interface AnalysisRequest {
   repository_url: string
-  github_token: string
+  github_token: string  // Required for private repos
 }
 
 export interface Analysis {
@@ -300,7 +300,9 @@ export interface ReportResponse {
 }
 
 export interface ErrorResponse {
-  error: boolean
-  message: string
-  details?: Record<string, unknown>
+  error?: boolean
+  message?: string
+  detail?: string
+  repository_url?: string[]
+  github_token?: string[]
 }

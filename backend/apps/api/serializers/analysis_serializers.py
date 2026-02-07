@@ -16,15 +16,18 @@ class AnalysisSerializer(serializers.ModelSerializer):
     
     Used for analysis status checks and listing.
     """
+    repository_url = serializers.URLField(source='repo_url', read_only=True)
+    overall_score = serializers.FloatField(read_only=True)
     status_display = serializers.CharField(source='get_status_display', read_only=True)
     
     class Meta:
         model = Analysis
         fields = [
             'id',
-            'repo_url',
+            'repository_url',
             'status',
             'status_display',
+            'overall_score',
             'started_at',
             'completed_at',
             'error_message',
@@ -59,47 +62,35 @@ class ReportSerializer(serializers.ModelSerializer):
     analysis = AnalysisSerializer(read_only=True)
     
     # Add computed fields from raw_data for convenience
-    repository = serializers.SerializerMethodField()
-    architecture = serializers.SerializerMethodField()
-    quality = serializers.SerializerMethodField()
-    principles = serializers.SerializerMethodField()
-    collaboration = serializers.SerializerMethodField()
+    architecture_data = serializers.SerializerMethodField()
+    quality_data = serializers.SerializerMethodField()
+    principles_data = serializers.SerializerMethodField()
+    collaboration_data = serializers.SerializerMethodField()
     
     class Meta:
         model = Report
         fields = [
             'id',
             'analysis',
-            'overall_score',
-            'architecture_score',
-            'quality_score',
-            'principles_score',
-            'collaboration_score',
-            'repository',
-            'architecture',
-            'quality',
-            'principles',
-            'collaboration',
-            'insights',
+            'architecture_data',
+            'quality_data',
+            'principles_data',
+            'collaboration_data',
             'created_at',
         ]
     
-    def get_repository(self, obj):
-        """Extract repository info from raw_data."""
-        return obj.raw_data.get('repository', {})
-    
-    def get_architecture(self, obj):
+    def get_architecture_data(self, obj):
         """Extract architecture analysis from raw_data."""
         return obj.raw_data.get('architecture', {})
     
-    def get_quality(self, obj):
+    def get_quality_data(self, obj):
         """Extract quality metrics from raw_data."""
         return obj.raw_data.get('quality', {})
     
-    def get_principles(self, obj):
+    def get_principles_data(self, obj):
         """Extract principles evaluation from raw_data."""
         return obj.raw_data.get('principles', {})
     
-    def get_collaboration(self, obj):
+    def get_collaboration_data(self, obj):
         """Extract collaboration metrics from raw_data."""
         return obj.raw_data.get('collaboration', {})
