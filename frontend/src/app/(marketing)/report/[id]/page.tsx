@@ -8,6 +8,9 @@ import { QualityInsights } from '@/components/reports/QualityInsights'
 import { PrinciplesInsights } from '@/components/reports/PrinciplesInsights'
 import { ArchitectureInsights } from '@/components/reports/ArchitectureInsights'
 import { CollaborationInsights } from '@/components/reports/CollaborationInsights'
+import { RawDataFallback } from '@/components/reports/RawDataFallback'
+import { AIInsightsOverview } from '@/components/reports/AIInsightsOverview'
+import { ExecutiveSummary } from '@/components/reports/ExecutiveSummary'
 
 export default function ReportPage() {
   const params = useParams()
@@ -95,67 +98,89 @@ export default function ReportPage() {
           </div>
 
           {/* Main content area */}
-          <div className="lg:col-span-3">
-            {/* Tabs */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 mb-6">
-              <div className="flex overflow-x-auto">
+          <div className="lg:col-span-3 space-y-6">
+            {/* AI Insights Overview */}
+            <AIInsightsOverview report={report} />
+
+            {/* Executive Summary & Developer Guide */}
+            <ExecutiveSummary report={report} />
+
+            {/* Analysis Tabs */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div className="flex overflow-x-auto border-b border-gray-200 dark:border-gray-700">
                 <button
                   onClick={() => setActiveTab('quality')}
-                  className={`flex-1 px-6 py-4 font-semibold transition ${
+                  className={`flex-1 px-6 py-4 font-semibold transition whitespace-nowrap ${
                     activeTab === 'quality'
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-blue-600 text-white border-b-2 border-blue-600'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                 >
-                  Quality
+                  📊 Quality
                 </button>
                 <button
                   onClick={() => setActiveTab('principles')}
-                  className={`flex-1 px-6 py-4 font-semibold transition ${
+                  className={`flex-1 px-6 py-4 font-semibold transition whitespace-nowrap ${
                     activeTab === 'principles'
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-blue-600 text-white border-b-2 border-blue-600'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                 >
-                  Principles
+                  🏗️ Principles
                 </button>
                 <button
                   onClick={() => setActiveTab('architecture')}
-                  className={`flex-1 px-6 py-4 font-semibold transition ${
+                  className={`flex-1 px-6 py-4 font-semibold transition whitespace-nowrap ${
                     activeTab === 'architecture'
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-blue-600 text-white border-b-2 border-blue-600'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                 >
-                  Architecture
+                  🏛️ Architecture
                 </button>
                 <button
                   onClick={() => setActiveTab('collaboration')}
-                  className={`flex-1 px-6 py-4 font-semibold transition ${
+                  className={`flex-1 px-6 py-4 font-semibold transition whitespace-nowrap ${
                     activeTab === 'collaboration'
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-blue-600 text-white border-b-2 border-blue-600'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                 >
-                  Collaboration
+                  👥 Collaboration
                 </button>
               </div>
-            </div>
 
-            {/* Tab content */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-              {activeTab === 'quality' && report.insights?.quality && (
-                <QualityInsights insight={report.insights.quality} />
-              )}
-              {activeTab === 'principles' && report.insights?.principles && (
-                <PrinciplesInsights insight={report.insights.principles} />
-              )}
-              {activeTab === 'architecture' && report.insights?.architecture && (
-                <ArchitectureInsights insight={report.insights.architecture} />
-              )}
-              {activeTab === 'collaboration' && report.insights?.collaboration && (
-                <CollaborationInsights insight={report.insights.collaboration} />
-              )}
+              {/* Tab content */}
+              <div className="p-6">
+                {activeTab === 'quality' && (
+                  report.insights?.quality ? (
+                    <QualityInsights insight={report.insights.quality} />
+                  ) : (
+                    <RawDataFallback title="Quality Analysis" rawData={(report as any).quality} type="quality" />
+                  )
+                )}
+                {activeTab === 'principles' && (
+                  report.insights?.principles ? (
+                    <PrinciplesInsights insight={report.insights.principles} />
+                  ) : (
+                    <RawDataFallback title="Engineering Principles" rawData={(report as any).principles} type="principles" />
+                  )
+                )}
+                {activeTab === 'architecture' && (
+                  report.insights?.architecture ? (
+                    <ArchitectureInsights insight={report.insights.architecture} />
+                  ) : (
+                    <RawDataFallback title="Architecture" rawData={report.architecture} type="quality" />
+                  )
+                )}
+                {activeTab === 'collaboration' && (
+                  report.insights?.collaboration ? (
+                    <CollaborationInsights insight={report.insights.collaboration} />
+                  ) : (
+                    <RawDataFallback title="Collaboration" rawData={(report as any).collaboration} type="collaboration" />
+                  )
+                )}
+              </div>
             </div>
           </div>
         </div>

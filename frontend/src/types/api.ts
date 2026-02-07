@@ -278,10 +278,10 @@ export interface CollaborationInsight {
 }
 
 export interface Insights {
-  quality: QualityInsight
-  principles: PrinciplesInsight
-  architecture: ArchitectureInsight
-  collaboration: CollaborationInsight
+  quality?: QualityInsight
+  principles?: PrinciplesInsight
+  architecture?: ArchitectureInsight
+  collaboration?: CollaborationInsight
 }
 
 export interface ReportResponse {
@@ -296,7 +296,15 @@ export interface ReportResponse {
   architecture: {
     signals: ArchitectureSignal[]
   }
-  insights: Insights
+  quality?: any  // Raw quality data fallback
+  principles?: any  // Raw principles data fallback
+  collaboration?: any  // Raw collaboration data fallback
+  insights?: Insights  // AI-generated insights (may be partial or missing)
+  ai_executive_summary?: string
+  ai_developer_guide?: any
+  ai_hire_recommendation?: string
+  ai_total_tokens?: number
+  ai_processing_time_ms?: number
 }
 
 export interface ErrorResponse {

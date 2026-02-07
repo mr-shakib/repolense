@@ -64,6 +64,9 @@ class ReportSerializer(serializers.ModelSerializer):
     # Extract structured data from raw_data
     repository = serializers.SerializerMethodField()
     architecture = serializers.SerializerMethodField()
+    quality = serializers.SerializerMethodField()
+    principles = serializers.SerializerMethodField()
+    collaboration = serializers.SerializerMethodField()
     
     class Meta:
         model = Report
@@ -77,10 +80,15 @@ class ReportSerializer(serializers.ModelSerializer):
             'collaboration_score',
             'repository',
             'architecture',
+            'quality',
+            'principles',
+            'collaboration',
             'insights',
             'ai_executive_summary',
             'ai_developer_guide',
             'ai_hire_recommendation',
+            'ai_total_tokens',
+            'ai_processing_time_ms',
             'created_at',
         ]
     
@@ -102,3 +110,15 @@ class ReportSerializer(serializers.ModelSerializer):
         return {
             'signals': arch_data.get('signals', [])
         }
+    
+    def get_quality(self, obj):
+        """Extract quality metrics from raw_data."""
+        return obj.raw_data.get('quality', {})
+    
+    def get_principles(self, obj):
+        """Extract principles evaluation from raw_data."""
+        return obj.raw_data.get('principles', {})
+    
+    def get_collaboration(self, obj):
+        """Extract collaboration metrics from raw_data."""
+        return obj.raw_data.get('collaboration', {})
