@@ -49,9 +49,9 @@ async function request<T>(
     if (!response.ok) {
       const errorData = data as ErrorResponse
       throw new APIError(
-        errorData.message || 'An error occurred',
+        errorData.message || errorData.detail || 'An error occurred',
         response.status,
-        errorData.details
+        errorData
       )
     }
 
@@ -93,6 +93,12 @@ export const api = {
    */
   getReport: (id: string) =>
     request<ReportResponse>(`/api/reports/${id}/`),
+
+  /**
+   * Get report by analysis ID (convenience method).
+   */
+  getReportByAnalysis: (analysisId: string) =>
+    request<ReportResponse>(`/api/analyze/${analysisId}/report/`),
 }
 
 export { APIError }
