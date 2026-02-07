@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react'
 import { api, APIError } from '@/lib/api/client'
 import type { ReportResponse } from '@/types/api'
 import LoadingSpinner from './LoadingSpinner'
-import ScoreCard from './ScoreCard'
 import ArchitectureCard from './ArchitectureCard'
 import QualityCard from './QualityCard'
 import PrinciplesCard from './PrinciplesCard'
@@ -66,8 +65,8 @@ export default function ReportDisplay({ analysisId }: ReportDisplayProps) {
     return null
   }
 
-  const overallScore = report.analysis.overall_score || 0
-  const repoUrl = report.analysis.repository_url || 'Unknown Repository'
+  const overallScore = report.analysis?.overall_score || 0
+  const repoUrl = report.analysis?.repository_url || 'Unknown Repository'
   const repoName = repoUrl.includes('/') 
     ? repoUrl.split('/').slice(-2).join('/')
     : repoUrl
@@ -99,10 +98,10 @@ export default function ReportDisplay({ analysisId }: ReportDisplayProps) {
 
       {/* Score Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <ArchitectureCard data={report.architecture_data} />
-        <QualityCard data={report.quality_data} />
-        <PrinciplesCard data={report.principles_data} />
-        <CollaborationCard data={report.collaboration_data} />
+        {report.architecture_data && <ArchitectureCard data={report.architecture_data} />}
+        {report.quality_data && <QualityCard data={report.quality_data} />}
+        {report.principles_data && <PrinciplesCard data={report.principles_data} />}
+        {report.collaboration_data && <CollaborationCard data={report.collaboration_data} />}
       </div>
 
       {/* Actions */}
