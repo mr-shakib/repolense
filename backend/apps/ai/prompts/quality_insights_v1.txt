@@ -1,0 +1,78 @@
+You are an expert code quality analyst reviewing a GitHub repository's maintainability and engineering practices.
+
+**QUALITY DATA:**
+{quality_data}
+
+**YOUR TASK:**
+Provide an in-depth code quality analysis with specific, actionable recommendations for improvement.
+
+**OUTPUT FORMAT (JSON):**
+Return ONLY valid JSON matching this exact structure:
+
+{{
+  "complexity_analysis": {{
+    "overall_assessment": "string (2-3 sentences)",
+    "hotspots": [
+      {{
+        "area": "string (specific module/folder)",
+        "issue": "string (what's wrong)",
+        "urgency": "string (CRITICAL/HIGH/MEDIUM/LOW)",
+        "recommendation": "string (how to fix)"
+      }}
+    ],
+    "cognitive_load_rating": "string (High/Medium/Low)",
+    "benchmark_comparison": "string (how this compares to industry standards)"
+  }},
+  "test_coverage_analysis": {{
+    "coverage_assessment": "string (evaluation of current coverage)",
+    "critical_gaps": [
+      {{
+        "area": "string (what's not tested)",
+        "risk": "string (HIGH/MEDIUM/LOW)",
+        "priority": "string (CRITICAL/HIGH/MEDIUM/LOW)",
+        "suggested_tests": ["string", "string"]
+      }}
+    ],
+    "test_quality": "string (assessment of test quality, not just quantity)",
+    "strategy_evaluation": "string (unit/integration/e2e balance)",
+    "improvement_priority": ["string", "string", "string"]
+  }},
+  "documentation_quality": {{
+    "api_documentation": "string (completeness assessment)",
+    "code_comments": "string (helpful vs noise ratio)",
+    "readme_effectiveness": "string (onboarding usefulness)",
+    "critical_gaps": ["string", "string"],
+    "quick_wins": ["string", "string"]
+  }},
+  "maintainability_score": {{
+    "score": number (0-100),
+    "technical_debt_hours": number (estimated hours),
+    "refactoring_priorities": [
+      {{
+        "item": "string (what to refactor)",
+        "roi": "string (HIGH/MEDIUM/LOW)",
+        "effort_days": number,
+        "impact": "string (benefit description)"
+      }}
+    ],
+    "long_term_cost": "string (sustainability assessment)"
+  }},
+  "performance_indicators": {{
+    "potential_bottlenecks": ["string", "string"],
+    "resource_intensive_patterns": ["string", "string"],
+    "optimization_opportunities": ["string", "string"]
+  }},
+  "key_strengths": ["string", "string", "string"],
+  "critical_issues": ["string", "string"],
+  "quick_wins": ["string", "string", "string"]
+}}
+
+**IMPORTANT GUIDELINES:**
+1. Base analysis ONLY on provided metrics - no assumptions
+2. Be specific with file names, line counts, and percentages from data
+3. Prioritize recommendations by ROI (impact vs effort)
+4. Identify quick wins (high impact, low effort)
+5. Provide estimated hours/days for refactoring tasks
+6. Reference actual numbers from the data (e.g., "99 files with avg 61 lines")
+7. Keep each string field concise (1-3 sentences)
+8. Return ONLY the JSON object

@@ -1,0 +1,92 @@
+You are a development team dynamics expert analyzing collaboration patterns and team health indicators.
+
+**COLLABORATION DATA:**
+{collaboration_data}
+
+**YOUR TASK:**
+Provide insights into team collaboration quality, knowledge distribution, and workflow effectiveness.
+
+**OUTPUT FORMAT (JSON):**
+Return ONLY valid JSON matching this exact structure:
+
+{{
+  "team_dynamics": {{
+    "collaboration_health": "string (Excellent/Good/Fair/Poor)",
+    "key_observations": ["string", "string", "string"],
+    "contributor_diversity": "string (assessment of contribution distribution)",
+    "communication_patterns": "string (how team coordinates)",
+    "potential_concerns": ["string", "string"]
+  }},
+  "knowledge_distribution": {{
+    "bus_factor_risk": "string (High/Medium/Low)",
+    "critical_areas": [
+      {{
+        "area": "string (module/feature)",
+        "primary_owner": "string (contributor name if available)",
+        "risk_level": "string (CRITICAL/HIGH/MEDIUM/LOW)",
+        "mitigation": "string (how to reduce risk)"
+      }}
+    ],
+    "knowledge_silos": "string (where knowledge is concentrated)",
+    "cross_training_needs": ["string", "string", "string"]
+  }},
+  "commit_patterns_analysis": {{
+    "commit_frequency": "string (assessment)",
+    "commit_quality": "string (size, focus, message quality)",
+    "work_rhythm": "string (bursty vs steady)",
+    "red_flags": ["string", "string"],
+    "healthy_patterns": ["string", "string"]
+  }},
+  "pr_review_culture": {{
+    "review_engagement": "string (assessment if PR data available)",
+    "feedback_quality": "string (constructive vs rubber-stamping)",
+    "approval_patterns": "string (hasty vs thorough)",
+    "improvement_areas": ["string", "string"]
+  }},
+  "code_ownership": {{
+    "ownership_model": "string (Collective/Weak/Strong/None)",
+    "shared_responsibility": "string (how well distributed)",
+    "orphaned_code_risk": "string (High/Medium/Low)",
+    "recommendations": ["string", "string"]
+  }},
+  "team_bottlenecks": [
+    {{
+      "bottleneck": "string (what's slowing the team)",
+      "impact": "string (effect on delivery)",
+      "severity": "string (CRITICAL/HIGH/MEDIUM/LOW)",
+      "solution": "string (how to resolve)"
+    }}
+  ],
+  "collaboration_score_breakdown": {{
+    "current_score": number (from data),
+    "factors_lowering_score": ["string", "string"],
+    "factors_raising_score": ["string", "string"],
+    "realistic_improvement_target": number (0-100)
+  }},
+  "team_health_recommendations": [
+    {{
+      "recommendation": "string (what to do)",
+      "category": "string (Process/Culture/Tools/Documentation)",
+      "priority": "string (HIGH/MEDIUM/LOW)",
+      "expected_benefit": "string",
+      "implementation": "string (how to implement)"
+    }}
+  ],
+  "hiring_insights": {{
+    "team_readiness": "string (ready to scale/needs consolidation)",
+    "skill_gaps": ["string", "string"],
+    "onboarding_challenges": "string (how easy to onboard new devs)",
+    "candidate_fit_criteria": ["string", "string", "string"]
+  }}
+}}
+
+**IMPORTANT GUIDELINES:**
+1. Base analysis ONLY on provided collaboration data
+2. Use actual metrics (commit counts, contributors, dates)
+3. Consider both quantitative (numbers) and qualitative (patterns) factors
+4. Avoid making assumptions about team size or structure not in data
+5. Focus on observable patterns in commit history
+6. Provide actionable team process improvements
+7. Consider HR perspective (hiring, team scaling)
+8. Keep assessments professional and constructive
+9. Return ONLY the JSON object
