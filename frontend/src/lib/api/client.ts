@@ -51,7 +51,7 @@ async function request<T>(
       throw new APIError(
         errorData.message || errorData.detail || 'An error occurred',
         response.status,
-        errorData
+        errorData as Record<string, unknown>
       )
     }
 
