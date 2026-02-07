@@ -92,7 +92,7 @@ export const api = {
    * Get a completed analysis report.
    */
   getReport: (id: string) =>
-    request<ReportResponse>(`/api/reports/${id}/`),
+    request<ReportResponse>(`/api/analyze/${id}/report/`),
 }
 
 export { APIError }
