@@ -1,27 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=SF+Pro+Display:wght@600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Apple-inspired Color System - Clean & Sophisticated */
+  --primary-hue: 211;
+  /* Professional blue */
+  --accent-hue: 211;
+
+  /* Primary Blue - Apple-style refined blue */
+  --color-primary-50: hsl(211, 100%, 98%);
+  --color-primary-100: hsl(211, 96%, 95%);
+  --color-primary-200: hsl(211, 94%, 88%);
+  --color-primary-300: hsl(211, 92%, 78%);
+  --color-primary-400: hsl(211, 88%, 68%);
+  --color-primary-500: hsl(211, 84%, 58%);
+  /* Main brand blue */
+  --color-primary-600: hsl(211, 80%, 48%);
+  --color-primary-700: hsl(211, 76%, 38%);
+  --color-primary-800: hsl(211, 72%, 28%);
+  --color-primary-900: hsl(211, 68%, 18%);
+
+  /* Accent - Vibrant blue for CTAs */
+  --color-accent-400: hsl(211, 100%, 60%);
+  --color-accent-500: hsl(211, 100%, 50%);
+  --color-accent-600: hsl(211, 100%, 45%);
+
+  /* Neutral Grays - Material Design inspired */
+  --color-gray-50: hsl(210, 20%, 98%);
+  --color-gray-100: hsl(210, 17%, 95%);
+  --color-gray-200: hsl(210, 16%, 93%);
+  --color-gray-300: hsl(210, 14%, 89%);
+  --color-gray-400: hsl(210, 12%, 71%);
+  --color-gray-500: hsl(210, 10%, 53%);
+  --color-gray-600: hsl(210, 12%, 43%);
+  --color-gray-700: hsl(210, 14%, 33%);
+  --color-gray-800: hsl(210, 16%, 23%);
+  --color-gray-900: hsl(210, 18%, 13%);
+
+  /* Semantic Colors */
+  --foreground-rgb: 17, 24, 39;
+  /* gray-900 */
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 249, 250, 251;
+  /* Very subtle gray */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
+    --foreground-rgb: 249, 250, 251;
+    --background-start-rgb: 17, 24, 39;
     --background-end-rgb: 0, 0, 0;
   }
 }
 
+* {
+  scroll-behavior: smooth;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: rgb(var(--background-start-rgb));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Animations - Optimized for Smooth Performance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes gradientShift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Utility Classes - Material Design Elevation */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-dark {
+    background: rgba(17, 24, 39, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary-600), var(--color-accent-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    will-change: opacity, transform;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    will-change: opacity;
+  }
+
+  .animate-float {
+    animation: float 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: transform;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  /* Performance optimizations */
+  .animate-fade-in-up,
+  .animate-fade-in,
+  .animate-float {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+  }
+
+  /* Material Design Elevation Shadows */
+  .elevation-1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+
+  .elevation-2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  }
+
+  .elevation-3 {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+  }
+
+  .elevation-4 {
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+  }
 }
