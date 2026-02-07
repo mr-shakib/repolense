@@ -11,9 +11,11 @@ interface ArchitectureCardProps {
 }
 
 export default function ArchitectureCard({ data }: ArchitectureCardProps) {
-  const score = data?.confidence || 0
+  // Calculate score from signals
+  const signals = data?.signals || []
+  const primarySignal = signals.find(s => s.pattern === data?.primary_pattern)
+  const score = primarySignal?.confidence || 0
   const grade = getGrade(score)
-  const detectedPatterns = data?.detected_patterns || []
   const primaryPattern = data?.primary_pattern || 'Unknown'
 
   return (
@@ -59,17 +61,17 @@ export default function ArchitectureCard({ data }: ArchitectureCardProps) {
       </div>
 
       {/* Detected Patterns */}
-      {detectedPatterns.length > 0 && (
+      {signals.length > 0 && (
         <div>
           <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
             All Detected Patterns
           </div>
           <div className="space-y-2">
-            {detectedPatterns.slice(0, 3).map((pattern, idx) => (
+            {signals.filter(s => s.confidence >= 50).slice(0, 3).map((signal, idx) => (
               <div key={idx} className="flex items-center justify-between text-xs">
-                <span className="text-slate-600 dark:text-slate-400">{pattern?.pattern || 'Unknown'}</span>
+                <span className="text-slate-600 dark:text-slate-400">{signal?.pattern || 'Unknown'}</span>
                 <span className="font-semibold text-slate-700 dark:text-slate-300">
-                  {(pattern?.confidence || 0).toFixed(0)}%
+                  {(signal?.confidence || 0).toFixed(0)}%
                 </span>
               </div>
             ))}

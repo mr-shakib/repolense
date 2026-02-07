@@ -11,7 +11,7 @@ interface PrinciplesCardProps {
 }
 
 export default function PrinciplesCard({ data }: PrinciplesCardProps) {
-  const score = data?.overall_score || 0
+  const score = data?.principle_score || 0
   const grade = data?.grade || 'N/A'
   const solidScores = data?.solid_scores || {}
   const violations = data?.violations || []

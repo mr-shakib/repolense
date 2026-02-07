@@ -11,9 +11,9 @@ interface QualityCardProps {
 }
 
 export default function QualityCard({ data }: QualityCardProps) {
-  const score = data?.overall_score || 0
+  const score = data?.scores?.overall || 0
   const grade = data?.grade || 'N/A'
-  const complexityMetrics = data?.complexity_metrics || {}
+  const fileMetrics = data?.file_metrics || {}
   const testMetrics = data?.test_metrics || {}
   const docMetrics = data?.documentation_metrics || {}
 
@@ -58,15 +58,15 @@ export default function QualityCard({ data }: QualityCardProps) {
           <div className="space-y-1 text-slate-600 dark:text-slate-400">
             <div className="flex justify-between">
               <span>Files:</span>
-              <span className="font-medium">{complexityMetrics.total_files || 0}</span>
+              <span className="font-medium">{fileMetrics.total_files || 0}</span>
             </div>
             <div className="flex justify-between">
               <span>Avg Length:</span>
-              <span className="font-medium">{complexityMetrics.avg_file_length || 0} lines</span>
+              <span className="font-medium">{Math.round(fileMetrics.avg_file_length || 0)} lines</span>
             </div>
             <div className="flex justify-between">
               <span>Large Files:</span>
-              <span className="font-medium">{complexityMetrics.large_files_count || 0}</span>
+              <span className="font-medium">{fileMetrics.large_files_count || 0}</span>
             </div>
           </div>
         </div>

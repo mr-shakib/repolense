@@ -65,7 +65,12 @@ export default function ReportDisplay({ analysisId }: ReportDisplayProps) {
     return null
   }
 
-  const overallScore = report.analysis?.overall_score || 0
+  // Calculate overall score from weighted components (Quality 40%, Principles 35%, Collaboration 25%)
+  const qualityScore = report.quality_data?.scores?.overall || 0
+  const principlesScore = report.principles_data?.principle_score || 0
+  const collaborationScore = report.collaboration_data?.collaboration_score || 0
+  const overallScore = (qualityScore * 0.40) + (principlesScore * 0.35) + (collaborationScore * 0.25)
+  
   const repoUrl = report.analysis?.repository_url || 'Unknown Repository'
   const repoName = repoUrl.includes('/') 
     ? repoUrl.split('/').slice(-2).join('/')
@@ -91,8 +96,13 @@ export default function ReportDisplay({ analysisId }: ReportDisplayProps) {
         <div className="text-6xl font-bold mb-2" style={{ color: getScoreColor(overallScore) }}>
           {overallScore.toFixed(1)}
         </div>
-        <div className="text-2xl font-semibold text-slate-600 dark:text-slate-400">
+        <div className="text-2xl font-semibold text-slate-600 dark:text-slate-400 mb-4">
           {getGrade(overallScore)}
+        </div>
+        <div className="text-xs text-slate-500 dark:text-slate-400 space-y-1">
+          <div>Quality: {qualityScore.toFixed(1)} × 40%</div>
+          <div>Principles: {principlesScore.toFixed(1)} × 35%</div>
+          <div>Collaboration: {collaborationScore.toFixed(1)} × 25%</div>
         </div>
       </div>
 

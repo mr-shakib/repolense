@@ -29,18 +29,23 @@ export interface ReportResponse {
   id: string
   analysis: AnalysisResponse
   architecture_data: {
-    detected_patterns: Array<{
+    signals: Array<{
       pattern: string
       confidence: number
       evidence: string[]
+      indicators: Record<string, boolean>
+      confidence_level: string
     }>
     primary_pattern: string
-    confidence: number
+    detected_patterns: string[]
+    has_clear_architecture: boolean
   }
   quality_data: {
-    complexity_metrics: {
+    file_metrics: {
       total_files: number
+      total_lines: number
       avg_file_length: number
+      max_file_length: number
       median_file_length: number
       large_files_count: number
     }
@@ -53,31 +58,54 @@ export interface ReportResponse {
       has_readme: boolean
       has_docs_folder: boolean
       documented_files_count: number
+      doc_ratio: number
     }
-    overall_score: number
+    scores: {
+      complexity: number
+      tests: number
+      documentation: number
+      overall: number
+    }
     grade: string
+    quality_level: string
+    strengths: string[]
+    issues: string[]
   }
   principles_data: {
     violations: Array<{
       principle: string
       description: string
       severity: string
-      file_path: string | null
+      file: string | null
+      suggestion: string
     }>
     solid_scores: Record<string, number>
-    code_smell_count: number
-    overall_score: number
+    code_smells: string[]
+    total_violations: number
+    high_severity_count: number
+    principle_score: number
     grade: string
+    quality_level: string
   }
   collaboration_data: {
     total_contributors: number
     active_contributors: number
-    key_contributors: number
+    top_contributors: Array<{
+      name: string
+      commits: number
+      percentage: number
+      is_key: boolean
+      files_touched: number
+    }>
     bus_factor: number
+    bus_factor_severity: string
+    has_bus_factor_risk: boolean
+    total_commits: number
     commit_frequency: number
     ownership_concentration: number
-    overall_score: number
+    collaboration_score: number
     grade: string
+    level: string
   }
   created_at: string
 }

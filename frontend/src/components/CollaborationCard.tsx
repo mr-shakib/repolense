@@ -11,11 +11,11 @@ interface CollaborationCardProps {
 }
 
 export default function CollaborationCard({ data }: CollaborationCardProps) {
-  const score = data?.overall_score || 0
+  const score = data?.collaboration_score || 0
   const grade = data?.grade || 'N/A'
   const totalContributors = data?.total_contributors || 0
   const activeContributors = data?.active_contributors || 0
-  const keyContributors = data?.key_contributors || 0
+  const topContributors = data?.top_contributors || []
   const busFactor = data?.bus_factor || 0
   const commitFrequency = data?.commit_frequency || 0
   const ownershipConcentration = data?.ownership_concentration || 0
@@ -68,8 +68,8 @@ export default function CollaborationCard({ data }: CollaborationCardProps) {
               <span className="font-medium">{activeContributors}</span>
             </div>
             <div className="flex justify-between">
-              <span>Key (≥20%):</span>
-              <span className="font-medium">{keyContributors}</span>
+              <span>Key Contributors:</span>
+              <span className="font-medium">{topContributors.filter(c => c.is_key).length}</span>
             </div>
           </div>
         </div>
