@@ -67,7 +67,10 @@ export default function ReportDisplay({ analysisId }: ReportDisplayProps) {
   }
 
   const overallScore = report.analysis.overall_score || 0
-  const repoName = report.analysis.repository_url.split('/').slice(-2).join('/')
+  const repoUrl = report.analysis.repository_url || 'Unknown Repository'
+  const repoName = repoUrl.includes('/') 
+    ? repoUrl.split('/').slice(-2).join('/')
+    : repoUrl
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
