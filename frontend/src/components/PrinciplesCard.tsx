@@ -11,8 +11,10 @@ interface PrinciplesCardProps {
 }
 
 export default function PrinciplesCard({ data }: PrinciplesCardProps) {
-  const score = data.overall_score
-  const grade = data.grade
+  const score = data?.overall_score || 0
+  const grade = data?.grade || 'N/A'
+  const solidScores = data?.solid_scores || {}
+  const violations = data?.violations || []
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
@@ -51,11 +53,11 @@ export default function PrinciplesCard({ data }: PrinciplesCardProps) {
           SOLID Breakdown
         </div>
         <div className="space-y-2">
-          {Object.entries(data.solid_scores).map(([principle, principleScore]) => (
+          {Object.entries(solidScores).map(([principle, principleScore]) => (
             <div key={principle} className="flex items-center justify-between text-xs">
               <span className="text-slate-600 dark:text-slate-400">{formatPrinciple(principle)}</span>
               <span className="font-semibold text-slate-700 dark:text-slate-300">
-                {principleScore.toFixed(0)}%
+                {(typeof principleScore === 'number' ? principleScore : 0).toFixed(0)}%
               </span>
             </div>
           ))}
@@ -69,31 +71,31 @@ export default function PrinciplesCard({ data }: PrinciplesCardProps) {
             Issues Found
           </span>
           <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
-            {data.violations.length}
+            {violations.length}
           </span>
         </div>
         
-        {data.violations.length > 0 && (
+        {violations.length > 0 && (
           <div className="space-y-2 max-h-32 overflow-y-auto">
-            {data.violations.slice(0, 3).map((violation, idx) => (
+            {violations.slice(0, 3).map((violation, idx) => (
               <div
                 key={idx}
                 className="p-2 rounded bg-slate-50 dark:bg-slate-700/50 text-xs"
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="font-semibold text-slate-700 dark:text-slate-300">
-                    {violation.principle}
+                    {violation?.principle || 'Unknown'}
                   </span>
                   <span
                     className={`px-2 py-0.5 rounded text-xs font-medium ${getSeverityColor(
-                      violation.severity
+                      violation?.severity || 'LOW'
                     )}`}
                   >
-                    {violation.severity}
+                    {violation?.severity || 'N/A'}
                   </span>
                 </div>
                 <p className="text-slate-600 dark:text-slate-400 line-clamp-2">
-                  {violation.description}
+                  {violation?.description || 'No description available'}
                 </p>
               </div>
             ))}

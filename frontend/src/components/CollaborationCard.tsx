@@ -11,8 +11,14 @@ interface CollaborationCardProps {
 }
 
 export default function CollaborationCard({ data }: CollaborationCardProps) {
-  const score = data.overall_score
-  const grade = data.grade
+  const score = data?.overall_score || 0
+  const grade = data?.grade || 'N/A'
+  const totalContributors = data?.total_contributors || 0
+  const activeContributors = data?.active_contributors || 0
+  const keyContributors = data?.key_contributors || 0
+  const busFactor = data?.bus_factor || 0
+  const commitFrequency = data?.commit_frequency || 0
+  const ownershipConcentration = data?.ownership_concentration || 0
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
@@ -55,15 +61,15 @@ export default function CollaborationCard({ data }: CollaborationCardProps) {
           <div className="space-y-1 text-slate-600 dark:text-slate-400">
             <div className="flex justify-between">
               <span>Total:</span>
-              <span className="font-medium">{data.total_contributors}</span>
+              <span className="font-medium">{totalContributors}</span>
             </div>
             <div className="flex justify-between">
               <span>Active (≥5%):</span>
-              <span className="font-medium">{data.active_contributors}</span>
+              <span className="font-medium">{activeContributors}</span>
             </div>
             <div className="flex justify-between">
               <span>Key (≥20%):</span>
-              <span className="font-medium">{data.key_contributors}</span>
+              <span className="font-medium">{keyContributors}</span>
             </div>
           </div>
         </div>
@@ -76,13 +82,13 @@ export default function CollaborationCard({ data }: CollaborationCardProps) {
           <div className="flex items-center space-x-2">
             <span
               className={`px-3 py-1 rounded-full text-sm font-semibold ${getBusFactorColor(
-                data.bus_factor
+                busFactor
               )}`}
             >
-              {data.bus_factor}
+              {busFactor}
             </span>
             <span className="text-xs text-slate-500 dark:text-slate-400">
-              {getBusFactorLabel(data.bus_factor)}
+              {getBusFactorLabel(busFactor)}
             </span>
           </div>
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
@@ -98,11 +104,11 @@ export default function CollaborationCard({ data }: CollaborationCardProps) {
           <div className="space-y-1 text-slate-600 dark:text-slate-400">
             <div className="flex justify-between">
               <span>Commits/Week:</span>
-              <span className="font-medium">{data.commit_frequency.toFixed(1)}</span>
+              <span className="font-medium">{commitFrequency.toFixed(1)}</span>
             </div>
             <div className="flex justify-between">
               <span>Top Contributor:</span>
-              <span className="font-medium">{data.ownership_concentration.toFixed(0)}%</span>
+              <span className="font-medium">{ownershipConcentration.toFixed(0)}%</span>
             </div>
           </div>
         </div>

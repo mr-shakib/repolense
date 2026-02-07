@@ -11,8 +11,11 @@ interface QualityCardProps {
 }
 
 export default function QualityCard({ data }: QualityCardProps) {
-  const score = data.overall_score
-  const grade = data.grade
+  const score = data?.overall_score || 0
+  const grade = data?.grade || 'N/A'
+  const complexityMetrics = data?.complexity_metrics || {}
+  const testMetrics = data?.test_metrics || {}
+  const docMetrics = data?.documentation_metrics || {}
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
@@ -55,15 +58,15 @@ export default function QualityCard({ data }: QualityCardProps) {
           <div className="space-y-1 text-slate-600 dark:text-slate-400">
             <div className="flex justify-between">
               <span>Files:</span>
-              <span className="font-medium">{data.complexity_metrics.total_files}</span>
+              <span className="font-medium">{complexityMetrics.total_files || 0}</span>
             </div>
             <div className="flex justify-between">
               <span>Avg Length:</span>
-              <span className="font-medium">{data.complexity_metrics.avg_file_length} lines</span>
+              <span className="font-medium">{complexityMetrics.avg_file_length || 0} lines</span>
             </div>
             <div className="flex justify-between">
               <span>Large Files:</span>
-              <span className="font-medium">{data.complexity_metrics.large_files_count}</span>
+              <span className="font-medium">{complexityMetrics.large_files_count || 0}</span>
             </div>
           </div>
         </div>
@@ -76,15 +79,15 @@ export default function QualityCard({ data }: QualityCardProps) {
           <div className="space-y-1 text-slate-600 dark:text-slate-400">
             <div className="flex justify-between">
               <span>Has Tests:</span>
-              <span className="font-medium">{data.test_metrics.has_tests ? '✓ Yes' : '✗ No'}</span>
+              <span className="font-medium">{testMetrics.has_tests ? '✓ Yes' : '✗ No'}</span>
             </div>
             <div className="flex justify-between">
               <span>Test Files:</span>
-              <span className="font-medium">{data.test_metrics.test_files_count}</span>
+              <span className="font-medium">{testMetrics.test_files_count || 0}</span>
             </div>
             <div className="flex justify-between">
               <span>Test Ratio:</span>
-              <span className="font-medium">{(data.test_metrics.test_ratio * 100).toFixed(1)}%</span>
+              <span className="font-medium">{((testMetrics.test_ratio || 0) * 100).toFixed(1)}%</span>
             </div>
           </div>
         </div>
@@ -97,11 +100,11 @@ export default function QualityCard({ data }: QualityCardProps) {
           <div className="space-y-1 text-slate-600 dark:text-slate-400">
             <div className="flex justify-between">
               <span>README:</span>
-              <span className="font-medium">{data.documentation_metrics.has_readme ? '✓ Yes' : '✗ No'}</span>
+              <span className="font-medium">{docMetrics.has_readme ? '✓ Yes' : '✗ No'}</span>
             </div>
             <div className="flex justify-between">
               <span>Docs Folder:</span>
-              <span className="font-medium">{data.documentation_metrics.has_docs_folder ? '✓ Yes' : '✗ No'}</span>
+              <span className="font-medium">{docMetrics.has_docs_folder ? '✓ Yes' : '✗ No'}</span>
             </div>
           </div>
         </div>
