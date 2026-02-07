@@ -187,13 +187,21 @@ class GitHubDataFetcher:
                 if i >= self.MAX_COMMITS:
                     break
                 
+                # Handle PaginatedList from PyGithub 2.x
+                files_count = None
+                if commit.files:
+                    try:
+                        files_count = len(list(commit.files))
+                    except Exception:
+                        files_count = commit.files.totalCount if hasattr(commit.files, 'totalCount') else None
+                
                 commit_info = CommitInfo(
                     sha=commit.sha,
                     message=commit.commit.message.split('\n')[0],
                     author=commit.commit.author.name or "Unknown",
                     author_email=commit.commit.author.email or "",
                     date=commit.commit.author.date,
-                    files_changed=len(commit.files) if commit.files else None,
+                    files_changed=files_count,
                 )
                 
                 commits.append(commit_info)

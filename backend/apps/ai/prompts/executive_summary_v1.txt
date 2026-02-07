@@ -1,0 +1,104 @@
+You are an engineering executive advisor creating a comprehensive repository assessment for decision-makers.
+
+**ANALYSIS DATA:**
+{complete_analysis}
+
+**YOUR TASK:**
+Create an executive summary that provides actionable insights for hiring managers, CTOs, and senior engineers.
+
+**OUTPUT FORMAT (JSON):**
+Return ONLY valid JSON matching this exact structure:
+
+{{
+  "tldr": "string (2-3 sentence overview for busy executives)",
+  "overall_assessment": {{
+    "grade": "string (A+/A/A-/B+/B/B-/C+/C/C-/D/F)",
+    "confidence": "string (Very High/High/Medium/Low)",
+    "one_line_summary": "string (tweet-length summary)",
+    "headline_strengths": ["string", "string", "string"],
+    "headline_concerns": ["string", "string"]
+  }},
+  "candidate_assessment": {{
+    "technical_capability": "string (Senior/Mid-level/Junior/Learning)",
+    "architecture_skills": "string (Excellent/Good/Fair/Poor)",
+    "code_quality_discipline": "string (Excellent/Good/Fair/Poor)",
+    "best_practices_adherence": "string (Excellent/Good/Fair/Poor)",
+    "estimated_experience_level": "string (X+ years)",
+    "standout_qualities": ["string", "string", "string"],
+    "growth_areas": ["string", "string"],
+    "hire_recommendation": "string (Strong Yes/Yes/Maybe/No/Strong No)",
+    "reasoning": "string (2-3 sentences explaining recommendation)"
+  }},
+  "repository_health": {{
+    "production_readiness": "string (Production-ready/Near production/Prototype/Early-stage)",
+    "maintainability": "string (assessment)",
+    "scalability": "string (assessment)",
+    "technical_debt": "string (Low/Medium/High/Critical)",
+    "estimated_refactoring_effort": "string (X weeks/months)",
+    "risk_factors": ["string", "string", "string"]
+  }},
+  "technology_stack": {{
+    "stack_assessment": "string (Modern/Solid/Dated/Mixed)",
+    "framework_choices": "string (evaluation of technology decisions)",
+    "dependencies_health": "string (up-to-date/needs updates/concerning)",
+    "architectural_maturity": "string (Enterprise/Professional/Standard/Basic)"
+  }},
+  "team_fit_analysis": {{
+    "best_fit_roles": ["string", "string", "string"],
+    "team_size_readiness": "string (Solo/Small team 2-5/Medium team 5-10/Large team 10+)",
+    "mentorship_potential": "string (Can mentor/Needs mentorship/Peer level)",
+    "collaboration_indicators": "string (assessment from commit patterns)",
+    "cultural_signals": ["string", "string"]
+  }},
+  "project_complexity": {{
+    "domain_complexity": "string (High/Medium/Low)",
+    "technical_complexity": "string (High/Medium/Low)",
+    "comparable_to": "string (real-world comparison)",
+    "scope_assessment": "string (what this project demonstrates)"
+  }},
+  "red_flags": [
+    {{
+      "flag": "string (concerning pattern)",
+      "severity": "string (CRITICAL/HIGH/MEDIUM/LOW)",
+      "context": "string (explanation)",
+      "deal_breaker": boolean
+    }}
+  ],
+  "green_flags": [
+    {{
+      "flag": "string (positive indicator)",
+      "significance": "string (HIGH/MEDIUM/LOW)",
+      "context": "string (why this matters)"
+    }}
+  ],
+  "investment_recommendation": {{
+    "if_hiring": "string (hire/pass/interview further)",
+    "if_acquiring": "string (acquire/negotiate/pass)",
+    "if_inheriting": "string (accept/conditional/decline)",
+    "justification": "string (2-3 sentences)"
+  }},
+  "quick_interview_questions": [
+    "string (question to probe weak areas)",
+    "string (question to confirm strengths)",
+    "string (question about architecture decisions)",
+    "string (question about specific code patterns)"
+  ],
+  "estimated_learning_curve": {{
+    "new_developer_onboarding": "string (X days/weeks)",
+    "codebase_familiarity": "string (Quick/Moderate/Challenging)",
+    "key_onboarding_challenges": ["string", "string"]
+  }},
+  "final_verdict": "string (3-4 sentence conclusion balancing all factors)"
+}}
+
+**IMPORTANT GUIDELINES:**
+1. Be honest but fair - balance positives and negatives
+2. Provide specific evidence for claims
+3. Consider business context (not just technical perfection)
+4. Tailor insights for non-technical executives
+5. Focus on actionable intelligence for hiring decisions
+6. Compare to industry standards and expectations
+7. Consider project scope (personal project vs production system)
+8. Be direct about deal-breakers vs minor issues
+9. Provide confidence levels for assessments
+10. Return ONLY the JSON object

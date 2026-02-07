@@ -1,0 +1,1366 @@
+﻿{
+    "id":  "e0da9710-e755-43e8-977a-a65921581d65",
+    "analysis":  {
+                     "id":  "e262121c-1b7f-4fe2-8cfd-5713b729c63d",
+                     "repo_url":  "https://github.com/mr-shakib/Perfin",
+                     "status":  "COMPLETED",
+                     "status_display":  "Completed",
+                     "started_at":  "2026-02-07T18:03:32.301397Z",
+                     "completed_at":  "2026-02-07T18:05:16.310554Z",
+                     "error_message":  null
+                 },
+    "overall_score":  54.99936305732484,
+    "architecture_score":  70.0,
+    "quality_score":  51.0,
+    "principles_score":  64.92675159235668,
+    "collaboration_score":  47.5,
+    "repository":  {
+                       "url":  "https://github.com/mr-shakib/Perfin",
+                       "name":  "Perfin",
+                       "forks":  0,
+                       "owner":  "mr-shakib",
+                       "stars":  0,
+                       "description":  null,
+                       "primary_language":  "Dart"
+                   },
+    "architecture":  {
+                         "signals":  [
+                                         {
+                                             "pattern":  "MVC",
+                                             "evidence":  [
+                                                              "Has models/ directory (data layer)",
+                                                              "Has app/ directory (Rails/Laravel style)"
+                                                          ],
+                                             "confidence":  35.0,
+                                             "indicators":  {
+                                                                "has_models":  true
+                                                            },
+                                             "confidence_level":  "Not Detected"
+                                         },
+                                         {
+                                             "pattern":  "Clean Architecture",
+                                             "evidence":  [
+                                                              "No Clean Architecture structure detected"
+                                                          ],
+                                             "confidence":  0.0,
+                                             "indicators":  {
+
+                                                            },
+                                             "confidence_level":  "Not Detected"
+                                         },
+                                         {
+                                             "pattern":  "Layered Architecture",
+                                             "evidence":  [
+                                                              "Has presentation/ui layer",
+                                                              "Has business/service layer"
+                                                          ],
+                                             "confidence":  65.0,
+                                             "indicators":  {
+                                                                "has_business":  true,
+                                                                "has_presentation":  true
+                                                            },
+                                             "confidence_level":  "Strong"
+                                         },
+                                         {
+                                             "pattern":  "Feature-Based Architecture",
+                                             "evidence":  [
+                                                              "Has 2 feature modules: auth, profile",
+                                                              "Uses domain-driven feature names"
+                                                          ],
+                                             "confidence":  70.0,
+                                             "indicators":  {
+                                                                "features":  [
+                                                                                 "auth",
+                                                                                 "profile"
+                                                                             ],
+                                                                "feature_count":  2,
+                                                                "has_domain_features":  true
+                                                            },
+                                             "confidence_level":  "Strong"
+                                         }
+                                     ],
+                         "primary_pattern":  "Feature-Based Architecture",
+                         "detected_patterns":  [
+                                                   "Feature-Based Architecture",
+                                                   "Layered Architecture"
+                                               ],
+                         "has_clear_architecture":  true
+                     },
+    "quality":  {
+                    "grade":  "D",
+                    "issues":  [
+                                   "31 files \u003e1000 lines",
+                                   "43 files \u003e500 lines",
+                                   "Avg size 1457 exceeds 300",
+                                   "Very low coverage (8.9%)"
+                               ],
+                    "scores":  {
+                                   "tests":  33.8,
+                                   "overall":  51.0,
+                                   "complexity":  51.5,
+                                   "documentation":  74.1
+                               },
+                    "strengths":  [
+                                      "Organized test structure",
+                                      "28 test files",
+                                      "README present",
+                                      "Dedicated docs folder",
+                                      "21 doc files"
+                                  ],
+                    "file_metrics":  {
+                                         "total_files":  314,
+                                         "total_lines":  457350,
+                                         "avg_file_length":  1456.5,
+                                         "max_file_length":  175402,
+                                         "large_files_count":  43,
+                                         "median_file_length":  69.0
+                                     },
+                    "test_metrics":  {
+                                         "has_tests":  true,
+                                         "test_ratio":  0.09,
+                                         "test_files_count":  28
+                                     },
+                    "quality_level":  "Poor",
+                    "documentation_metrics":  {
+                                                  "doc_ratio":  0.07,
+                                                  "has_readme":  true,
+                                                  "has_docs_folder":  true,
+                                                  "documented_files_count":  21
+                                              }
+                },
+    "principles":  {
+                       "grade":  "C",
+                       "violations":  [
+                                          {
+                                              "file":  ".kiro/specs/main-app-tabs-and-features/design.md",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~992 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  ".kiro/specs/main-app-tabs-and-features/requirements.md",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~629 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  ".kiro/specs/main-app-tabs-and-features/tasks.md",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~537 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  ".kiro/specs/personal-finance-app/design.md",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~517 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  "assets/images/login_icon.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~175402 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/images/login_moscot.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~5266 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/images/logo.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~39627 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/images/perfin_ai.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~5530 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/json/login.json",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~54982 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/json/notification.json",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~5801 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/Perfin-AI.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~9913 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/add-money-to-goal.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~4940 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/analyze.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~4640 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/budget-goals.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~4828 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/budget-planning.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~5161 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/create-goal.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~4508 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/dashboard.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~5728 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/expense-feed.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~3683 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/expense.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~4663 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/goal-details.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~4983 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/goal-feed.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~3924 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/goal-progress.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~3652 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/income-feed.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~3714 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/income.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~4471 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/login.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~6664 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/ob2.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~7081 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/ob3.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~6359 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/ob4.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~6594 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/ob5.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~5806 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/ob6.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~6755 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/onboarding.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~11576 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/perfin-ai-chat.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~4163 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/profile.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~5928 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/sign-up.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~7055 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "ios/Runner.xcodeproj/project.pbxproj",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~525 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  "lib/screens/goals/goal_detail_screen.dart",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~532 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  "lib/services/ai_service.dart",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~985 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  "macos/Runner.xcodeproj/project.pbxproj",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~585 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  "macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_1024.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Split into smaller, focused modules (aim for \u003c300 lines)",
+                                              "description":  "File has ~2288 lines, likely handles multiple responsibilities"
+                                          },
+                                          {
+                                              "file":  "macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_512.png",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~809 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  "macos/Runner/Base.lproj/MainMenu.xib",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~527 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  "pubspec.lock",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~609 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  "windows/runner/resources/app_icon.ico",
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Single Responsibility Principle",
+                                              "suggestion":  "Review if file has single, well-defined purpose",
+                                              "description":  "File has ~750 lines, may violate SRP"
+                                          },
+                                          {
+                                              "file":  "assets/images/login_icon.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~175402 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/images/login_moscot.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~5266 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/images/logo.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~39627 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/images/perfin_ai.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~5530 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/json/login.json",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~54982 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/json/notification.json",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~5801 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/Perfin-AI.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~9913 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/add-money-to-goal.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~4940 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/analyze.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~4640 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/budget-goals.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~4828 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/budget-planning.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~5161 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/create-goal.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~4508 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/dashboard.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~5728 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/expense-feed.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~3683 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/expense.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~4663 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/goal-details.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~4983 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/goal-feed.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~3924 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/goal-progress.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~3652 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/income-feed.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~3714 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/income.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~4471 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/login.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~6664 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/ob2.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~7081 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/ob3.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~6359 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/ob4.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~6594 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/ob5.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~5806 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/ob6.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~6755 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/onboarding.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~11576 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/perfin-ai-chat.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~4163 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/profile.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~5928 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "assets/perfin-ui-ss/sign-up.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~7055 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  "macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_1024.png",
+                                              "severity":  "HIGH",
+                                              "principle":  "God Class",
+                                              "suggestion":  "Break into smaller, cohesive modules with single responsibilities",
+                                              "description":  "File has ~2288 lines, likely a god class doing too much"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: .gitignore, .gitignore, .gitignore, .gitignore, .gitignore, .gitignore"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: design.md, design.md"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: requirements.md, requirements.md"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: tasks.md, tasks.md"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: README.md, README.md, README.md, README.md, README.md"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: build.gradle.kts, build.gradle.kts"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: AndroidManifest.xml, AndroidManifest.xml, AndroidManifest.xml"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: launch_background.xml, launch_background.xml"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: ic_launcher.png, ic_launcher.png, ic_launcher.png, ic_launcher.png, ic_launcher.png"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: styles.xml, styles.xml"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: ob2.png, ob3.png, ob4.png, ob5.png, ob6.png"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: Debug.xcconfig, Debug.xcconfig"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: Release.xcconfig, Release.xcconfig"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: project.pbxproj, project.pbxproj"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: contents.xcworkspacedata, contents.xcworkspacedata, contents.xcworkspacedata"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: IDEWorkspaceChecks.plist, IDEWorkspaceChecks.plist, IDEWorkspaceChecks.plist, IDEWorkspaceChecks.plist"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: WorkspaceSettings.xcsettings, WorkspaceSettings.xcsettings"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: Runner.xcscheme, Runner.xcscheme"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: AppDelegate.swift, AppDelegate.swift"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: Contents.json, Contents.json, Contents.json"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: Icon-App-1024x1024@1x.png, Icon-App-20x20@1x.png, Icon-App-20x20@2x.png, Icon-App-20x20@3x.png, Icon-App-29x29@1x.png, Icon-App-29x29@2x.png, Icon-App-29x29@3x.png, Icon-App-40x40@1x.png, Icon-App-40x40@2x.png, Icon-App-40x40@3x.png, Icon-App-60x60@2x.png, Icon-App-60x60@3x.png, Icon-App-76x76@1x.png, Icon-App-76x76@2x.png"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: LaunchImage@2x.png, LaunchImage@3x.png"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: Info.plist, Info.plist"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: RunnerTests.swift, RunnerTests.swift"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: CMakeLists.txt, CMakeLists.txt, CMakeLists.txt, CMakeLists.txt, CMakeLists.txt, CMakeLists.txt"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: generated_plugin_registrant.cc, generated_plugin_registrant.cc"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: generated_plugin_registrant.h, generated_plugin_registrant.h"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: generated_plugins.cmake, generated_plugins.cmake"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: app_icon_1024.png, app_icon_128.png, app_icon_16.png, app_icon_256.png, app_icon_32.png, app_icon_512.png, app_icon_64.png"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: Icon-192.png, Icon-512.png"
+                                          },
+                                          {
+                                              "file":  null,
+                                              "severity":  "MEDIUM",
+                                              "principle":  "Duplicate Code",
+                                              "suggestion":  "Consolidate or refactor common code into shared module",
+                                              "description":  "Similar file names suggest duplication: Icon-maskable-192.png, Icon-maskable-512.png"
+                                          }
+                                      ],
+                       "code_smells":  [
+                                           "God Classes",
+                                           "Duplicate Code"
+                                       ],
+                       "solid_scores":  {
+                                            "open_closed":  75.0,
+                                            "liskov_substitution":  75.0,
+                                            "dependency_inversion":  100.0,
+                                            "interface_segregation":  75.0,
+                                            "single_responsibility":  72.6
+                                        },
+                       "quality_level":  "Fair",
+                       "principle_score":  64.9,
+                       "total_violations":  105,
+                       "high_severity_count":  62
+                   },
+    "collaboration":  {
+                          "grade":  "F",
+                          "level":  "Poor",
+                          "bus_factor":  1,
+                          "total_commits":  24,
+                          "commit_frequency":  14.0,
+                          "top_contributors":  [
+                                                   {
+                                                       "name":  "Shakib",
+                                                       "is_key":  false,
+                                                       "commits":  0,
+                                                       "percentage":  0.0,
+                                                       "files_touched":  0
+                                                   }
+                                               ],
+                          "total_contributors":  1,
+                          "active_contributors":  0,
+                          "bus_factor_severity":  "HIGH",
+                          "collaboration_score":  47.5,
+                          "has_bus_factor_risk":  true,
+                          "ownership_concentration":  0.0
+                      },
+    "insights":  {
+                     "quality":  {
+                                     "quick_wins":  [
+                                                        "Add comments to complex logic",
+                                                        "Improve test coverage for critical paths",
+                                                        "Refactor small, manageable parts of large files"
+                                                    ],
+                                     "key_strengths":  [
+                                                           "Organized test structure",
+                                                           "Dedicated docs folder",
+                                                           "README present"
+                                                       ],
+                                     "critical_issues":  [
+                                                             "Very low test coverage",
+                                                             "High complexity due to large files"
+                                                         ],
+                                     "complexity_analysis":  {
+                                                                 "hotspots":  [
+                                                                                  {
+                                                                                      "area":  "files with \u003e1000 lines",
+                                                                                      "issue":  "Excessive code in single files",
+                                                                                      "urgency":  "CRITICAL",
+                                                                                      "recommendation":  "Refactor long files into smaller modules"
+                                                                                  },
+                                                                                  {
+                                                                                      "area":  "files with \u003e500 lines",
+                                                                                      "issue":  "Complex logic in large files",
+                                                                                      "urgency":  "HIGH",
+                                                                                      "recommendation":  "Break down into smaller functions or classes"
+                                                                                  }
+                                                                              ],
+                                                                 "overall_assessment":  "The codebase has high complexity with an average file length of 1456.5 lines and 43 large files exceeding 500 lines. This indicates potential maintainability issues. Simplification is necessary.",
+                                                                 "benchmark_comparison":  "Exceeds the recommended average file size of 300 lines",
+                                                                 "cognitive_load_rating":  "High"
+                                                             },
+                                     "documentation_quality":  {
+                                                                   "quick_wins":  [
+                                                                                      "Add comments to complex functions",
+                                                                                      "Improve README with setup instructions"
+                                                                                  ],
+                                                                   "code_comments":  "Comments are sparse and do not adequately explain complex logic.",
+                                                                   "critical_gaps":  [
+                                                                                         "Lack of API documentation",
+                                                                                         "Insufficient code comments"
+                                                                                     ],
+                                                                   "api_documentation":  "API documentation is incomplete.",
+                                                                   "readme_effectiveness":  "The README is present but may not be effective for new contributors."
+                                                               },
+                                     "maintainability_score":  {
+                                                                   "score":  51,
+                                                                   "long_term_cost":  "If left unaddressed, technical debt will significantly increase maintenance costs.",
+                                                                   "technical_debt_hours":  240,
+                                                                   "refactoring_priorities":  [
+                                                                                                  {
+                                                                                                      "roi":  "HIGH",
+                                                                                                      "item":  "Refactor large files",
+                                                                                                      "impact":  "Improves maintainability and reduces bugs",
+                                                                                                      "effort_days":  10
+                                                                                                  },
+                                                                                                  {
+                                                                                                      "roi":  "MEDIUM",
+                                                                                                      "item":  "Implement consistent naming conventions",
+                                                                                                      "impact":  "Enhances code readability",
+                                                                                                      "effort_days":  5
+                                                                                                  }
+                                                                                              ]
+                                                               },
+                                     "performance_indicators":  {
+                                                                    "potential_bottlenecks":  [
+                                                                                                  "Large file processing",
+                                                                                                  "Unoptimized database queries"
+                                                                                              ],
+                                                                    "optimization_opportunities":  [
+                                                                                                       "Optimize database queries",
+                                                                                                       "Implement caching"
+                                                                                                   ],
+                                                                    "resource_intensive_patterns":  [
+                                                                                                        "Excessive memory allocation",
+                                                                                                        "Unnecessary API calls"
+                                                                                                    ]
+                                                                },
+                                     "test_coverage_analysis":  {
+                                                                    "test_quality":  "Current tests are insufficient to ensure code reliability.",
+                                                                    "critical_gaps":  [
+                                                                                          {
+                                                                                              "area":  "Uncovered code paths",
+                                                                                              "risk":  "HIGH",
+                                                                                              "priority":  "CRITICAL",
+                                                                                              "suggested_tests":  [
+                                                                                                                      "unit tests for core logic",
+                                                                                                                      "integration tests for API calls"
+                                                                                                                  ]
+                                                                                          }
+                                                                                      ],
+                                                                    "coverage_assessment":  "The test coverage is very low at 8.9%, indicating significant gaps in testing.",
+                                                                    "strategy_evaluation":  "Needs a balanced approach including unit, integration, and end-to-end tests.",
+                                                                    "improvement_priority":  [
+                                                                                                 "Increase unit test coverage",
+                                                                                                 "Implement integration testing",
+                                                                                                 "Add end-to-end tests"
+                                                                                             ]
+                                                                }
+                                 },
+                     "principles":  {
+                                        "error_handling":  {
+                                                               "gaps":  [
+                                                                            "No error handling in some UI components",
+                                                                            "No logging mechanism in place"
+                                                                        ],
+                                                               "critical_risks":  [
+                                                                                      "Uncaught exceptions may lead to application crashes",
+                                                                                      "Lack of logging may make it difficult to diagnose issues"
+                                                                                  ],
+                                                               "strategy_quality":  "Fair, with some gaps in error handling",
+                                                               "improvement_priorities":  [
+                                                                                              "Implement comprehensive error handling mechanisms",
+                                                                                              "Add logging to facilitate issue diagnosis"
+                                                                                          ],
+                                                               "best_practices_followed":  [
+                                                                                               "Try-catch blocks are used in some places"
+                                                                                           ]
+                                                           },
+                                        "code_organization":  {
+                                                                  "improvements":  [
+                                                                                       "Refactor large files into smaller modules",
+                                                                                       "Improve the separation of concerns",
+                                                                                       "Reduce coupling between modules"
+                                                                                   ],
+                                                                  "cohesion_level":  "Low",
+                                                                  "coupling_level":  "Medium",
+                                                                  "modularity_score":  60,
+                                                                  "structure_quality":  "Fair, with some files having multiple responsibilities",
+                                                                  "separation_of_concerns":  "Not well separated, with some files handling multiple concerns"
+                                                              },
+                                        "actionable_roadmap":  [
+                                                                   {
+                                                                       "phase":  "Immediate",
+                                                                       "actions":  [
+                                                                                       "Address critical violations of the Single Responsibility Principle",
+                                                                                       "Implement comprehensive error handling mechanisms"
+                                                                                   ],
+                                                                       "effort_estimate":  "2-4 weeks",
+                                                                       "expected_impact":  "Improved maintainability and reduced technical debt"
+                                                                   },
+                                                                   {
+                                                                       "phase":  "Short-term",
+                                                                       "actions":  [
+                                                                                       "Refactor large files into smaller modules",
+                                                                                       "Improve the separation of concerns"
+                                                                                   ],
+                                                                       "effort_estimate":  "4-8 weeks",
+                                                                       "expected_impact":  "Improved modularity and reusability of code"
+                                                                   },
+                                                                   {
+                                                                       "phase":  "Long-term",
+                                                                       "actions":  [
+                                                                                       "Implement a clear architecture",
+                                                                                       "Improve dependency management"
+                                                                                   ],
+                                                                       "effort_estimate":  "3-6 months",
+                                                                       "expected_impact":  "Improved scalability and future-proofing"
+                                                                   }
+                                                               ],
+                                        "naming_conventions":  {
+                                                                   "best_practices":  "Mostly followed, but some file names could be improved",
+                                                                   "clarity_rating":  "Good",
+                                                                   "confusing_names":  [
+                                                                                           "README.md",
+                                                                                           "design.md"
+                                                                                       ],
+                                                                   "recommendations":  [
+                                                                                           "Use more descriptive file names",
+                                                                                           "Follow a consistent naming convention throughout the codebase"
+                                                                                       ],
+                                                                   "consistency_score":  80
+                                                               },
+                                        "architectural_health":  {
+                                                                     "future_proofing":  "The codebase is not well prepared for future growth, with some technical debt and scalability concerns",
+                                                                     "scalability_concerns":  [
+                                                                                                  "The codebase may not scale well due to tight coupling between modules",
+                                                                                                  "The lack of a clear architecture may hinder future growth"
+                                                                                              ],
+                                                                     "technical_debt_level":  "Medium",
+                                                                     "dependency_management":  "Fair, with some dependencies not well managed"
+                                                                 },
+                                        "solid_principles_analysis":  {
+                                                                          "dry_principle":  {
+                                                                                                "score":  0,
+                                                                                                "estimated_waste":  "High, with an estimated waste of hundreds of lines of code and multiple hours of developer time",
+                                                                                                "duplication_level":  "High",
+                                                                                                "critical_duplications":  [
+                                                                                                                              {
+                                                                                                                                  "pattern":  "Similar file names",
+                                                                                                                                  "locations":  [
+                                                                                                                                                    "README.md",
+                                                                                                                                                    "README.md"
+                                                                                                                                                ],
+                                                                                                                                  "refactoring_approach":  "Consolidate or refactor common code into shared modules"
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                  "pattern":  "Similar file names",
+                                                                                                                                  "locations":  [
+                                                                                                                                                    "Icon-App-1024x1024@1x.png",
+                                                                                                                                                    "Icon-App-20x20@1x.png"
+                                                                                                                                                ],
+                                                                                                                                  "refactoring_approach":  "Consolidate or refactor common code into shared modules"
+                                                                                                                              }
+                                                                                                                          ]
+                                                                                            },
+                                                                          "overall_adherence":  "The codebase partially adheres to the SOLID principles, with some violations of the Single Responsibility Principle and a high level of duplication. Addressing these issues can improve maintainability and reduce technical debt.",
+                                                                          "single_responsibility":  {
+                                                                                                        "score":  72.6,
+                                                                                                        "impact":  "Violations of the Single Responsibility Principle can lead to maintainability issues, as changes to one responsibility may affect other parts of the code, leading to increased risk of bugs and making the code harder to understand and modify.",
+                                                                                                        "examples":  [
+                                                                                                                         {
+                                                                                                                             "fix":  "Review if file has single, well-defined purpose and split into smaller modules if necessary",
+                                                                                                                             "issue":  "File has ~992 lines, may violate SRP",
+                                                                                                                             "location":  ".kiro/specs/main-app-tabs-and-features/design.md"
+                                                                                                                         },
+                                                                                                                         {
+                                                                                                                             "fix":  "Split into smaller, focused modules with single responsibilities",
+                                                                                                                             "issue":  "File has ~175402 lines, likely handles multiple responsibilities",
+                                                                                                                             "location":  "assets/images/login_icon.png"
+                                                                                                                         }
+                                                                                                                     ],
+                                                                                                        "violations_found":  37
+                                                                                                    }
+                                                                      },
+                                        "design_patterns_evaluation":  {
+                                                                           "anti_patterns":  [
+                                                                                                 {
+                                                                                                     "remedy":  "Split into smaller, focused modules with single responsibilities",
+                                                                                                     "pattern":  "God Class",
+                                                                                                     "location":  "assets/images/login_icon.png",
+                                                                                                     "severity":  "High"
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "remedy":  "Consolidate or refactor common code into shared modules",
+                                                                                                     "pattern":  "Duplicate Code",
+                                                                                                     "location":  "README.md",
+                                                                                                     "severity":  "Medium"
+                                                                                                 }
+                                                                                             ],
+                                                                           "patterns_used_well":  [
+
+                                                                                                  ],
+                                                                           "missing_opportunities":  [
+                                                                                                         {
+                                                                                                             "benefit":  "Improved modularity and reusability of code",
+                                                                                                             "pattern":  "Factory Pattern",
+                                                                                                             "priority":  "Medium",
+                                                                                                             "where_needed":  "In the creation of UI components"
+                                                                                                         },
+                                                                                                         {
+                                                                                                             "benefit":  "Improved separation of concerns and maintainability",
+                                                                                                             "pattern":  "MVC Pattern",
+                                                                                                             "priority":  "High",
+                                                                                                             "where_needed":  "In the organization of the application logic"
+                                                                                                         }
+                                                                                                     ]
+                                                                       }
+                                    },
+                     "architecture":  {
+                                          "recommendations":  [
+                                                                  {
+                                                                      "title":  "Implement a more robust error handling mechanism",
+                                                                      "effort":  "MEDIUM",
+                                                                      "impact":  "HIGH",
+                                                                      "category":  "Architecture",
+                                                                      "priority":  "CRITICAL",
+                                                                      "description":  "The current error handling mechanism is limited and does not provide sufficient information for debugging. A more robust mechanism should be implemented to handle errors and exceptions in a centralized manner.",
+                                                                      "implementation_guide":  "Create a new error handling layer and integrate it with the existing layers"
+                                                                  },
+                                                                  {
+                                                                      "title":  "Refactor the presentation layer to reduce duplicated code",
+                                                                      "effort":  "LOW",
+                                                                      "impact":  "MEDIUM",
+                                                                      "category":  "Structure",
+                                                                      "priority":  "HIGH",
+                                                                      "description":  "The presentation layer contains duplicated code that can be refactored to improve maintainability and reduce technical debt. A more modular approach should be adopted to reduce duplication.",
+                                                                      "implementation_guide":  "Extract common functionality into separate modules"
+                                                                  },
+                                                                  {
+                                                                      "title":  "Improve documentation and commenting",
+                                                                      "effort":  "LOW",
+                                                                      "impact":  "LOW",
+                                                                      "category":  "Organization",
+                                                                      "priority":  "MEDIUM",
+                                                                      "description":  "The repository lacks sufficient documentation and commenting, making it difficult for new contributors to understand the codebase. More comments and documentation should be added to improve readability and maintainability.",
+                                                                      "implementation_guide":  "Add comments to explain complex logic and create documentation for the repository"
+                                                                  }
+                                                              ],
+                                          "quality_assessment":  {
+                                                                     "key_strengths":  [
+                                                                                           "Clear separation of concerns",
+                                                                                           "Minimal coupling between layers",
+                                                                                           "Well-structured repository"
+                                                                                       ],
+                                                                     "key_weaknesses":  [
+                                                                                            "Limited documentation",
+                                                                                            "Some duplicated code in the presentation layer"
+                                                                                        ],
+                                                                     "layering_score":  85,
+                                                                     "overall_rating":  "Very Good",
+                                                                     "dependency_management":  "Well-managed dependencies with minimal coupling",
+                                                                     "scalability_potential":  "High, due to the separation of concerns and the use of interfaces"
+                                                                 },
+                                          "real_world_examples":  [
+                                                                      {
+                                                                          "url":  "https://github.com/Netflix",
+                                                                          "project":  "Netflix",
+                                                                          "relevance":  "Netflix is a well-known example of a company that uses Clean Architecture and has a well-structured repository with a clear separation of concerns"
+                                                                      },
+                                                                      {
+                                                                          "url":  "https://github.com/airbnb",
+                                                                          "project":  "Airbnb",
+                                                                          "relevance":  "Airbnb is another example of a company that uses Clean Architecture and has a well-structured repository with a clear separation of concerns"
+                                                                      }
+                                                                  ],
+                                          "tech_stack_analysis":  {
+                                                                      "framework_fit":  "The framework used matches the Clean Architecture pattern well, with a clear separation of concerns and minimal coupling",
+                                                                      "missing_practices":  [
+                                                                                                "Continuous Integration/Continuous Deployment (CI/CD)",
+                                                                                                "Automated testing"
+                                                                                            ],
+                                                                      "modernization_suggestions":  [
+                                                                                                        "Adopt a more modern framework or library to improve performance and security",
+                                                                                                        "Implement a DevOps pipeline to improve deployment and monitoring"
+                                                                                                    ]
+                                                                  },
+                                          "pattern_justification":  {
+                                                                        "primary_pattern":  "Clean Architecture",
+                                                                        "evidence_analysis":  [
+                                                                                                  "Separation of presentation and business logic",
+                                                                                                  "Clear boundaries between layers",
+                                                                                                  "Minimal coupling between layers"
+                                                                                              ],
+                                                                        "confidence_explanation":  "The provided data suggests a Clean Architecture pattern due to the separation of concerns and the presence of distinct layers for presentation, business logic, and data access. This pattern is justified by the clear boundaries between layers and the minimal coupling between them. The evidence analysis reveals a well-structured repository with a clear separation of concerns.",
+                                                                        "alternative_patterns_considered":  [
+                                                                                                                "MVC",
+                                                                                                                "Microkernel Architecture"
+                                                                                                            ]
+                                                                    }
+                                      },
+                     "collaboration":  {
+                                           "team_dynamics":  {
+                                                                 "key_observations":  [
+                                                                                          "Low collaboration score",
+                                                                                          "Single contributor",
+                                                                                          "High bus factor risk"
+                                                                                      ],
+                                                                 "potential_concerns":  [
+                                                                                            "Knowledge silo",
+                                                                                            "Lack of code review"
+                                                                                        ],
+                                                                 "collaboration_health":  "Poor",
+                                                                 "contributor_diversity":  "Low",
+                                                                 "communication_patterns":  "Unknown due to single contributor"
+                                                             },
+                                           "code_ownership":  {
+                                                                  "ownership_model":  "None",
+                                                                  "recommendations":  [
+                                                                                          "Establish code ownership model",
+                                                                                          "Define responsibilities"
+                                                                                      ],
+                                                                  "orphaned_code_risk":  "High",
+                                                                  "shared_responsibility":  "Not applicable"
+                                                              },
+                                           "hiring_insights":  {
+                                                                   "skill_gaps":  [
+                                                                                      "Code review",
+                                                                                      "Pair programming"
+                                                                                  ],
+                                                                   "team_readiness":  "Not ready to scale",
+                                                                   "onboarding_challenges":  "High due to single contributor",
+                                                                   "candidate_fit_criteria":  [
+                                                                                                  "Familiarity with codebase",
+                                                                                                  "Experience with code review",
+                                                                                                  "Ability to work independently"
+                                                                                              ]
+                                                               },
+                                           "team_bottlenecks":  [
+                                                                    {
+                                                                        "impact":  "High risk of knowledge loss",
+                                                                        "severity":  "CRITICAL",
+                                                                        "solution":  "Add more contributors",
+                                                                        "bottleneck":  "Single contributor"
+                                                                    }
+                                                                ],
+                                           "pr_review_culture":  {
+                                                                     "feedback_quality":  "Unknown",
+                                                                     "approval_patterns":  "Unknown",
+                                                                     "improvement_areas":  [
+                                                                                               "Establish code review process",
+                                                                                               "Encourage constructive feedback"
+                                                                                           ],
+                                                                     "review_engagement":  "Unknown"
+                                                                 },
+                                           "knowledge_distribution":  {
+                                                                          "critical_areas":  [
+                                                                                                 {
+                                                                                                     "area":  "Entire codebase",
+                                                                                                     "mitigation":  "Cross-training other team members",
+                                                                                                     "risk_level":  "CRITICAL",
+                                                                                                     "primary_owner":  "Shakib"
+                                                                                                 }
+                                                                                             ],
+                                                                          "bus_factor_risk":  "High",
+                                                                          "knowledge_silos":  "Codebase",
+                                                                          "cross_training_needs":  [
+                                                                                                       "Code review",
+                                                                                                       "Pair programming",
+                                                                                                       "Documentation"
+                                                                                                   ]
+                                                                      },
+                                           "commit_patterns_analysis":  {
+                                                                            "red_flags":  [
+                                                                                              "Low commit frequency",
+                                                                                              "Single contributor"
+                                                                                          ],
+                                                                            "work_rhythm":  "Unknown",
+                                                                            "commit_quality":  "Unknown",
+                                                                            "commit_frequency":  "Low",
+                                                                            "healthy_patterns":  [
+                                                                                                     "Regular commits",
+                                                                                                     "Meaningful commit messages"
+                                                                                                 ]
+                                                                        },
+                                           "team_health_recommendations":  [
+                                                                               {
+                                                                                   "category":  "Process",
+                                                                                   "priority":  "HIGH",
+                                                                                   "implementation":  "Hire new team members",
+                                                                                   "recommendation":  "Add more contributors",
+                                                                                   "expected_benefit":  "Improved collaboration and knowledge distribution"
+                                                                               },
+                                                                               {
+                                                                                   "category":  "Process",
+                                                                                   "priority":  "HIGH",
+                                                                                   "implementation":  "Define code review guidelines",
+                                                                                   "recommendation":  "Establish code review process",
+                                                                                   "expected_benefit":  "Improved code quality and knowledge sharing"
+                                                                               }
+                                                                           ],
+                                           "collaboration_score_breakdown":  {
+                                                                                 "current_score":  47.5,
+                                                                                 "factors_raising_score":  [
+
+                                                                                                           ],
+                                                                                 "factors_lowering_score":  [
+                                                                                                                "Low collaboration",
+                                                                                                                "Single contributor"
+                                                                                                            ],
+                                                                                 "realistic_improvement_target":  70
+                                                                             }
+                                       }
+                 },
+    "created_at":  "2026-02-07T18:05:30.049088Z"
+}
