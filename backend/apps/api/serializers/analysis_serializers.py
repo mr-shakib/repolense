@@ -61,36 +61,44 @@ class ReportSerializer(serializers.ModelSerializer):
     """
     analysis = AnalysisSerializer(read_only=True)
     
-    # Add computed fields from raw_data for convenience
-    architecture_data = serializers.SerializerMethodField()
-    quality_data = serializers.SerializerMethodField()
-    principles_data = serializers.SerializerMethodField()
-    collaboration_data = serializers.SerializerMethodField()
+    # Extract structured data from raw_data
+    repository = serializers.SerializerMethodField()
+    architecture = serializers.SerializerMethodField()
     
     class Meta:
         model = Report
         fields = [
             'id',
             'analysis',
-            'architecture_data',
-            'quality_data',
-            'principles_data',
-            'collaboration_data',
+            'overall_score',
+            'architecture_score',
+            'quality_score',
+            'principles_score',
+            'collaboration_score',
+            'repository',
+            'architecture',
+            'insights',
+            'ai_executive_summary',
+            'ai_developer_guide',
+            'ai_hire_recommendation',
             'created_at',
         ]
     
-    def get_architecture_data(self, obj):
-        """Extract architecture analysis from raw_data."""
-        return obj.raw_data.get('architecture', {})
+    def get_repository(self, obj):
+        """Extract repository information from raw_data."""
+        return obj.raw_data.get('repository', {
+            'name': 'Unknown',
+            'owner': 'Unknown',
+            'url': obj.analysis.repo_url if obj.analysis else '',
+            'description': None,
+            'stars': 0,
+            'forks': 0,
+            'primary_language': 'Unknown',
+        })
     
-    def get_quality_data(self, obj):
-        """Extract quality metrics from raw_data."""
-        return obj.raw_data.get('quality', {})
-    
-    def get_principles_data(self, obj):
-        """Extract principles evaluation from raw_data."""
-        return obj.raw_data.get('principles', {})
-    
-    def get_collaboration_data(self, obj):
-        """Extract collaboration metrics from raw_data."""
-        return obj.raw_data.get('collaboration', {})
+    def get_architecture(self, obj):
+        """Extract architecture analysis from raw_data with signals."""
+        arch_data = obj.raw_data.get('architecture', {})
+        return {
+            'signals': arch_data.get('signals', [])
+        }
