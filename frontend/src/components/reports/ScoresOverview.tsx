@@ -31,13 +31,13 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
     <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Analysis Scores</h2>
       <div className="mb-6">
-        <h3 className="text-lg text-gray-600 dark:text-gray-400 mb-1">{report.repository.name}</h3>
-        <p className="text-sm text-gray-500 dark:text-gray-500">by {report.repository.owner}</p>
+        <h3 className="text-lg text-gray-600 dark:text-gray-400 mb-1">{report.repository?.name || 'Unknown Repository'}</h3>
+        <p className="text-sm text-gray-500 dark:text-gray-500">by {report.repository?.owner || 'Unknown'}</p>
         <div className="flex items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-400">
-          <span>⭐ {report.repository.stars}</span>
-          <span>🔱 {report.repository.forks}</span>
+          <span>⭐ {report.repository?.stars || 0}</span>
+          <span>🔱 {report.repository?.forks || 0}</span>
           <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">
-            {report.repository.primary_language}
+            {report.repository?.primary_language || 'Unknown'}
           </span>
         </div>
       </div>
