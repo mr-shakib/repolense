@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Sphere, Line, Text, Float } from '@react-three/drei'
+import { OrbitControls, Sphere, Line } from '@react-three/drei'
 import * as THREE from 'three'
 
 interface AnalysisPhase {
@@ -93,45 +93,26 @@ function PhaseNode({
         </Sphere>
       )}
       
-      {/* Checkmark for completed nodes */}
+      {/* Inner sphere for completed nodes - creates checkmark effect */}
       {isCompleted && (
-        <Text
-          position={[0, 0, 0.31]}
-          fontSize={0.3}
-          color="white"
-          anchorX="center"
-          anchorY="middle"
-        >
-          ✓
-        </Text>
+        <Sphere args={[0.15, 16, 16]}>
+          <meshStandardMaterial 
+            color="#ffffff"
+            emissive="#ffffff"
+            emissiveIntensity={0.5}
+          />
+        </Sphere>
       )}
       
-      {/* Number for pending nodes */}
+      {/* Rings for pending nodes */}
       {isPending && (
-        <Text
-          position={[0, 0, 0.31]}
-          fontSize={0.2}
-          color="white"
-          anchorX="center"
-          anchorY="middle"
-        >
-          {index + 1}
-        </Text>
+        <>
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[0.2, 0.03, 16, 32]} />
+            <meshStandardMaterial color="#ffffff" opacity={0.6} transparent />
+          </mesh>
+        </>
       )}
-      
-      {/* Phase label */}
-      <Float speed={2} rotationIntensity={0} floatIntensity={0.5}>
-        <Text
-          position={[0, -0.6, 0]}
-          fontSize={0.15}
-          color={isActive ? '#1e40af' : isCompleted ? '#064e3b' : '#6b7280'}
-          anchorX="center"
-          anchorY="middle"
-          maxWidth={2}
-        >
-          {phase.name}
-        </Text>
-      </Float>
     </group>
   )
 }
