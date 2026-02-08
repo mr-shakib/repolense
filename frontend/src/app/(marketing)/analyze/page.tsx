@@ -2,17 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { AnalysisRequest } from '@/types/api'
-import dynamic from 'next/dynamic'
-
-// Dynamically import the 3D component to avoid SSR issues
-const AnalysisAnimation3D = dynamic(() => import('@/components/analysis/AnalysisAnimation3D'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[400px] bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-xl flex items-center justify-center">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-    </div>
-  )
-})
+import AnalysisLoadingAnimation from '@/components/analysis/AnalysisLoadingAnimation'
 
 interface RecentAnalysis {
   id: string
@@ -292,26 +282,12 @@ export default function AnalyzePage() {
                 </div>
               )}
 
-              {/* Analysis Progress - 3D Animation */}
+              {/* Analysis Progress - Animated */}
               {loading && (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-center mb-2">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 mr-3"></div>
-                    <p className="text-blue-900 font-medium">
-                      {analysisId ? 'Analyzing repository...' : 'Submitting request...'}
-                    </p>
-                  </div>
-                  
-                  {/* 3D Animation */}
-                  <AnalysisAnimation3D 
-                    phases={ANALYSIS_PHASES} 
-                    currentPhase={currentPhase} 
-                  />
-                  
-                  <p className="text-xs text-blue-700 text-center">
-                    This may take 60-90 seconds
-                  </p>
-                </div>
+                <AnalysisLoadingAnimation 
+                  phases={ANALYSIS_PHASES} 
+                  currentPhase={currentPhase} 
+                />
               )}
 
               {/* Submit Button */}
