@@ -12,6 +12,7 @@ import { RawDataFallback } from '@/components/reports/RawDataFallback'
 import { AIInsightsOverview } from '@/components/reports/AIInsightsOverview'
 import { ExecutiveSummary } from '@/components/reports/ExecutiveSummary'
 import { motion, AnimatePresence } from 'framer-motion'
+import React from 'react'
 
 export default function ReportPage() {
   const params = useParams()
@@ -100,44 +101,79 @@ export default function ReportPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 relative overflow-hidden">
-      {/* Creative Gradient Mesh Background */}
+    <main className="min-h-screen bg-slate-50 relative overflow-hidden">
+      {/* Creative Animated Pattern Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {/* Animated gradient orbs */}
+        {/* Geometric shapes pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ 
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+        
+        {/* Animated solid color circles with morphing effect */}
         <motion.div
           animate={{
             x: [0, 100, 0],
             y: [0, -100, 0],
             scale: [1, 1.2, 1],
-            opacity: [0.4, 0.6, 0.4],
+            rotate: [0, 180, 360],
+            borderRadius: ['50%', '40%', '50%'],
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/30 to-cyan-400/30 rounded-full blur-3xl"
+          className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-500/20 blur-3xl"
         />
         <motion.div
           animate={{
             x: [0, -120, 0],
             y: [0, 100, 0],
             scale: [1, 1.3, 1],
-            opacity: [0.3, 0.5, 0.3],
+            rotate: [360, 180, 0],
+            borderRadius: ['50%', '35%', '50%'],
           }}
           transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
+          className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-purple-500/15 blur-3xl"
         />
         <motion.div
           animate={{
             x: [0, -80, 0],
             y: [0, -80, 0],
             scale: [1, 1.15, 1],
-            opacity: [0.2, 0.4, 0.2],
+            rotate: [0, -90, 0],
+            borderRadius: ['50%', '45%', '50%'],
           }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 5 }}
-          className="absolute top-1/3 left-1/3 w-[400px] h-[400px] bg-gradient-to-bl from-indigo-400/25 to-blue-400/25 rounded-full blur-3xl"
+          className="absolute top-1/3 left-1/3 w-[400px] h-[400px] bg-indigo-500/18 blur-3xl"
         />
-        {/* Floating particles */}
-        {[...Array(6)].map((_, i) => (
+        
+        {/* Animated geometric shapes floating */}
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
+            animate={{
+              y: [0, -40, 0],
+              rotate: [0, 360],
+              opacity: [0.15, 0.35, 0.15],
+            }}
+            transition={{
+              duration: 4 + i,
+              repeat: Infinity,
+              delay: i * 0.7,
+            }}
+            className="absolute rounded-sm"
+            style={{
+              width: i % 2 === 0 ? '12px' : '8px',
+              height: i % 2 === 0 ? '12px' : '8px',
+              backgroundColor: i % 3 === 0 ? '#3b82f6' : i % 3 === 1 ? '#8b5cf6' : '#06b6d4',
+              opacity: 0.2,
+              left: `${10 + i * 12}%`,
+              top: `${15 + i * 8}%`,
+              transform: `rotate(${i * 45}deg)`,
+            }}
+          />
+        ))}
+        {/* Dotted pattern overlay */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={`dot-${i}`}
             animate={{
               y: [0, -30, 0],
               opacity: [0.2, 0.4, 0.2],
@@ -147,7 +183,7 @@ export default function ReportPage() {
               repeat: Infinity,
               delay: i * 0.5,
             }}
-            className="absolute w-2 h-2 bg-blue-400/40 rounded-full"
+            className="absolute w-3 h-3 bg-blue-600/30 rounded-full"
             style={{
               left: `${15 + i * 15}%`,
               top: `${20 + i * 10}%`,
@@ -168,7 +204,10 @@ export default function ReportPage() {
             href="/analyze"
             whileHover={{ x: -4, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium mb-6 group px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-blue-100/50 shadow-sm hover:shadow-md transition-all"
+            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium mb-6 group px-4 py-2.5 bg-white/80 backdrop-blur-md rounded-full border-2 border-blue-200 shadow-[0_4px_12px_rgba(59,130,246,0.1)] hover:shadow-[0_8px_24px_rgba(59,130,246,0.15)] transition-all"
+            style={{
+              boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.7), 0 4px 12px rgba(59,130,246,0.1)',
+            }}
           >
             <motion.svg
               className="w-5 h-5"
@@ -186,24 +225,26 @@ export default function ReportPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="inline-block"
+            className="inline-block relative"
           >
             <motion.h1
-              className="text-5xl md:text-6xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4"
-              animate={{
-                backgroundPosition: ['0%', '100%', '0%'],
+              className="text-5xl md:text-6xl font-black text-gray-900 mb-4 relative"
+              style={{
+                textShadow: '2px 2px 0 rgba(59,130,246,0.1), 4px 4px 0 rgba(139,92,246,0.05)',
               }}
-              transition={{ duration: 8, repeat: Infinity }}
-              style={{ backgroundSize: '200% auto' }}
             >
               Analysis Report
+              {/* Animated underline decoration */}
+              <motion.span
+                className="absolute -bottom-2 left-0 h-2 bg-blue-600 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: '120px' }}
+                transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
+                style={{
+                  boxShadow: '0 4px 12px rgba(59,130,246,0.3)',
+                }}
+              />
             </motion.h1>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: "120px" }}
-              transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
-              className="h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-lg shadow-blue-500/50"
-            />
           </motion.div>
         </motion.div>
 
@@ -255,10 +296,13 @@ export default function ReportPage() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ delay: 0.7, type: "spring", stiffness: 100 }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="bg-white/80 backdrop-blur-xl rounded-3xl border border-white/50 shadow-2xl shadow-blue-500/10 overflow-hidden"
+              className="bg-white/90 backdrop-blur-xl rounded-3xl border-2 border-gray-200 overflow-hidden"
+              style={{
+                boxShadow: '0 20px 60px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)',
+              }}
             >
-              {/* Tab Navigation with Glassmorphism */}
-              <div className="flex overflow-x-auto border-b border-gray-100/50 bg-gradient-to-r from-gray-50/80 to-blue-50/40 backdrop-blur-sm">
+              {/* Tab Navigation with Neumorphic Style */}
+              <div className="flex overflow-x-auto border-b-2 border-gray-200 bg-gray-50">
                 {[
                   { key: 'quality', label: 'Quality', icon: '📊' },
                   { key: 'principles', label: 'Principles', icon: '🏗️' },
@@ -270,29 +314,42 @@ export default function ReportPage() {
                     onClick={() => setActiveTab(tab.key as any)}
                     className={`relative flex-1 px-6 py-4 font-bold transition-all whitespace-nowrap ${
                       activeTab === tab.key
-                        ? 'text-blue-600 bg-white/90 backdrop-blur-sm shadow-sm'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                        ? 'text-blue-600 bg-white'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                     }`}
                     whileHover={{ y: -3, scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 + index * 0.1 }}
+                    style={activeTab === tab.key ? {
+                      boxShadow: '0 -2px 10px rgba(59,130,246,0.1), inset 0 1px 0 rgba(255,255,255,1)',
+                    } : {}}
                   >
                     <motion.span 
                       className="mr-2 text-xl"
-                      animate={{ rotate: activeTab === tab.key ? [0, 10, -10, 0] : 0 }}
+                      animate={{ 
+                        rotate: activeTab === tab.key ? [0, 10, -10, 0] : 0,
+                        y: activeTab === tab.key ? [0, -2, 0] : 0,
+                      }}
                       transition={{ duration: 0.5 }}
                     >
                       {tab.icon}
                     </motion.span>
                     {tab.label}
                     {activeTab === tab.key && (
-                      <motion.div
-                        layoutId="activeTab"
-                        className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg shadow-blue-500/50"
-                        transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                      />
+                      <React.Fragment>
+                        <motion.div
+                          layoutId="activeTab"
+                          className="absolute bottom-0 left-0 right-0 h-1 bg-blue-600"
+                          transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                          style={{
+                            boxShadow: '0 0 20px rgba(59,130,246,0.5)',
+                          }}
+                        />
+                        {/* Corner highlights */}
+                        <span className="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                      </React.Fragment>
                     )}
                   </motion.button>
                 ))}

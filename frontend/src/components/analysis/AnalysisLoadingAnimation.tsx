@@ -70,27 +70,40 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
   }, [])
 
   return (
-    <div className="relative w-full bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-2xl overflow-hidden border border-blue-100 shadow-lg">
-      {/* Background Particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {particles.map((particle) => (
-          <motion.div
-            key={particle.id}
-            className="absolute w-2 h-2 bg-blue-400/20 rounded-full"
-            style={{ left: `${particle.x}%`, top: `${particle.y}%` }}
-            animate={{
-              y: [0, -100, 0],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: particle.delay,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+    <div className="relative w-full bg-white rounded-2xl overflow-hidden shadow-lg" style={{
+      border: '2px solid rgba(226,232,240,0.8)',
+      boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.9), 0 20px 40px rgba(0,0,0,0.08), 0 10px 20px rgba(59,130,246,0.05)'
+    }}>
+      {/* Geometric Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <svg width="100%" height="100%">
+          <pattern id="analysis-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="20" cy="20" r="1.5" fill="#3b82f6" />
+            <rect x="0" y="0" width="40" height="1" fill="#8b5cf6" opacity="0.5" />
+            <rect x="0" y="0" width="1" height="40" fill="#8b5cf6" opacity="0.5" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#analysis-pattern)" />
+        </svg>
       </div>
+      {/* Animated solid color shapes */}
+      <motion.div
+        animate={{
+          y: [-10, 10, -10],
+          x: [-5, 5, -5],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -top-12 -right-12 w-24 h-24 bg-blue-500/8 rounded-full blur-2xl pointer-events-none"
+      />
+      <motion.div
+        animate={{
+          y: [10, -10, 10],
+          x: [5, -5, 5],
+          rotate: [0, 180, 360],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -bottom-12 -left-12 w-24 h-24 bg-purple-500/8 rounded-full blur-2xl pointer-events-none"
+      />
 
       {/* Main Content */}
       <div className="relative z-10 p-8 lg:p-10">
@@ -104,12 +117,15 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
             className="w-20 h-20 lg:w-24 lg:h-24 mb-4 relative"
           >
             <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-2xl"
+              className="absolute inset-0 bg-blue-600 rounded-2xl flex items-center justify-center text-white"
+              style={{
+                boxShadow: '0 10px 40px rgba(59, 130, 246, 0.3), inset 0 2px 8px rgba(255,255,255,0.15)'
+              }}
               animate={{
                 boxShadow: [
-                  "0 10px 40px rgba(59, 130, 246, 0.3)",
-                  "0 10px 60px rgba(79, 70, 229, 0.4)",
-                  "0 10px 40px rgba(59, 130, 246, 0.3)",
+                  "0 10px 40px rgba(59, 130, 246, 0.3), inset 0 2px 8px rgba(255,255,255,0.15)",
+                  "0 15px 50px rgba(59, 130, 246, 0.4), inset 0 2px 8px rgba(255,255,255,0.2)",
+                  "0 10px 40px rgba(59, 130, 246, 0.3), inset 0 2px 8px rgba(255,255,255,0.15)",
                 ],
               }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -122,6 +138,12 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
               className="absolute inset-0 border-4 border-blue-400/30 rounded-2xl"
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            />
+            {/* Decorative corner dots */}
+            <motion.div
+              className="absolute -top-1 -right-1 w-3 h-3 bg-blue-400 rounded-full"
+              animate={{ scale: [1, 1.3, 1], opacity: [0.7, 1, 0.7] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
             />
           </motion.div>
 
@@ -146,15 +168,9 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
           </motion.p>
         </div>
 
-        {/* Progress Timeline */}
-        <div className="space-y-3 lg:space-y-0 lg:overflow-hidden lg:relative">
-          <motion.div
-            className="lg:flex lg:gap-4 lg:items-start space-y-3 lg:space-y-0"
-            animate={{
-              x: isLargeScreen ? `${-currentPhase * 14}%` : 0
-            }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-          >
+        {/* Progress Timeline - Fixed overflow issue */}
+        <div className="space-y-3 lg:space-y-0 lg:overflow-x-auto lg:pb-2" style={{ scrollbarWidth: 'thin' }}>
+          <div className="lg:flex lg:gap-4 lg:items-start space-y-3 lg:space-y-0 lg:min-w-max lg:px-2">
             {phases.map((phase, index) => {
               const isCompleted = index < currentPhase
               const isActive = index === currentPhase
@@ -164,9 +180,16 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
                 <motion.div
                   key={phase.name}
                   initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex items-center gap-4 lg:flex-col lg:flex-1 lg:min-w-[160px]"
+                  animate={{ 
+                    opacity: 1, 
+                    x: 0,
+                    scale: isActive && isLargeScreen ? [1, 1.03, 1] : 1
+                  }}
+                  transition={{ 
+                    delay: index * 0.1,
+                    scale: { duration: 2, repeat: Infinity }
+                  }}
+                  className="flex items-center gap-4 lg:flex-col lg:flex-none lg:w-[160px]"
                 >
                 {/* Status Indicator */}
                 <div className="relative lg:self-center">
@@ -311,17 +334,29 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
               </motion.div>
             )
           })}
-          </motion.div>
+          </div>
         </div>
 
-        {/* Progress Bar */}
-        <div className="mt-6 bg-white rounded-full h-2 overflow-hidden shadow-inner">
+        {/* Progress Bar - Solid color with glow */}
+        <div className="mt-6 bg-gray-100 rounded-full h-2 overflow-hidden" style={{
+          boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.1)'
+        }}>
           <motion.div
-            className="h-full bg-gradient-to-r from-blue-500 to-indigo-600"
+            className="h-full bg-blue-600 relative"
+            style={{
+              boxShadow: '0 0 12px rgba(59,130,246,0.4)'
+            }}
             initial={{ width: 0 }}
             animate={{ width: `${((currentPhase + 1) / phases.length) * 100}%` }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-          />
+          >
+            {/* Animated shimmer effect */}
+            <motion.div
+              className="absolute inset-0 bg-blue-400/30"
+              animate={{ x: ['-100%', '100%'] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+            />
+          </motion.div>
         </div>
 
         <motion.p

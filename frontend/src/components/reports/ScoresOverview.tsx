@@ -7,11 +7,11 @@ interface ScoresOverviewProps {
 
 export function ScoresOverview({ report }: ScoresOverviewProps) {
   const scores = [
-    { name: 'Overall', score: report.overall_score, color: 'indigo', gradient: 'from-indigo-500 to-purple-500' },
-    { name: 'Architecture', score: report.architecture_score, color: 'blue', gradient: 'from-blue-500 to-cyan-500' },
-    { name: 'Quality', score: report.quality_score, color: 'green', gradient: 'from-green-500 to-emerald-500' },
-    { name: 'Principles', score: report.principles_score, color: 'purple', gradient: 'from-purple-500 to-pink-500' },
-    { name: 'Collaboration', score: report.collaboration_score, color: 'teal', gradient: 'from-teal-500 to-cyan-500' },
+    { name: 'Overall', score: report.overall_score, color: '#6366f1' },
+    { name: 'Architecture', score: report.architecture_score, color: '#3b82f6' },
+    { name: 'Quality', score: report.quality_score, color: '#22c55e' },
+    { name: 'Principles', score: report.principles_score, color: '#a855f7' },
+    { name: 'Collaboration', score: report.collaboration_score, color: '#14b8a6' },
   ]
 
   const getScoreColor = (score: number) => {
@@ -21,27 +21,22 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
     return 'text-red-600'
   }
 
-  const getScoreGradient = (score: number) => {
-    if (score >= 80) return 'from-green-500 to-emerald-500'
-    if (score >= 60) return 'from-yellow-500 to-orange-500'
-    if (score >= 40) return 'from-orange-500 to-red-500'
-    return 'from-red-500 to-rose-500'
+  const getSolidColor = (score: number) => {
+    if (score >= 80) return '#22c55e'
+    if (score >= 60) return '#eab308'
+    if (score >= 40) return '#f97316'
+    return '#ef4444'
   }
 
-  const getBarColor = (score: number) => {
-    if (score >= 80) return 'bg-green-500'
-    if (score >= 60) return 'bg-yellow-500'
-    if (score >= 40) return 'bg-orange-500'
-    return 'bg-red-500'
-  }
-
-  const CircularProgress = ({ score, gradient, size = 80 }: { score: number; gradient: string; size?: number }) => {
+  const CircularProgress = ({ score, color, size = 80 }: { score: number; color: string; size?: number }) => {
     const circumference = 2 * Math.PI * (size / 2 - 8)
     const offset = circumference - (score / 100) * circumference
+    const scoreColor = getSolidColor(score)
 
     return (
       <div className="relative" style={{ width: size, height: size }}>
         <svg className="transform -rotate-90" width={size} height={size}>
+          {/* Background ring */}
           <circle
             cx={size / 2}
             cy={size / 2}
@@ -51,11 +46,26 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
             fill="none"
             className="text-gray-200"
           />
+          {/* Decorative inner ring */}
+          <motion.circle
+            cx={size / 2}
+            cy={size / 2}
+            r={size / 2 - 14}
+            stroke={scoreColor}
+            strokeWidth="2"
+            fill="none"
+            opacity="0.2"
+            strokeDasharray="4 4"
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+          />
+          {/* Main progress ring */}
           <motion.circle
             cx={size / 2}
             cy={size / 2}
             r={size / 2 - 8}
-            stroke={`url(#gradient-${gradient})`}
+            stroke={scoreColor}
             strokeWidth="8"
             fill="none"
             strokeLinecap="round"
@@ -63,13 +73,24 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
             initial={{ strokeDashoffset: circumference }}
             animate={{ strokeDashoffset: offset }}
             transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+            style={{
+              filter: `drop-shadow(0 0 8px ${scoreColor}40)`,
+            }}
           />
-          <defs>
-            <linearGradient id={`gradient-${gradient}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={gradient.includes('green') ? '#22c55e' : gradient.includes('yellow') ? '#eab308' : gradient.includes('orange') ? '#f97316' : gradient.includes('red') ? '#ef4444' : gradient.includes('blue') ? '#3b82f6' : gradient.includes('purple') ? '#a855f7' : gradient.includes('teal') ? '#14b8a6' : '#6366f1'} />
-              <stop offset="100%" stopColor={gradient.includes('emerald') ? '#10b981' : gradient.includes('orange') ? '#fb923c' : gradient.includes('rose') ? '#f43f5e' : gradient.includes('cyan') ? '#06b6d4' : gradient.includes('pink') ? '#ec4899' : '#8b5cf6'} />
-            </linearGradient>
-          </defs>
+          {/* Outer glow ring */}
+          <motion.circle
+            cx={size / 2}
+            cy={size / 2}
+            r={size / 2 - 4}
+            stroke={scoreColor}
+            strokeWidth="1"
+            fill="none"
+            opacity="0.3"
+            strokeDasharray={circumference}
+            initial={{ strokeDashoffset: circumference }}
+            animate={{ strokeDashoffset: offset }}
+            transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
+          />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.span
@@ -81,6 +102,18 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
             {Math.round(score)}
           </motion.span>
         </div>
+        {/* Rotating sparkle decoration for high scores */}
+        {score >= 80 && (
+          <motion.div
+            className="absolute -top-1 -right-1 w-3 h-3 rounded-full"
+            style={{ backgroundColor: scoreColor }}
+            animate={{ 
+              scale: [1, 1.3, 1],
+              rotate: [0, 180, 360]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+        )}
       </div>
     )
   }
@@ -89,22 +122,52 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative bg-white/80 backdrop-blur-xl rounded-3xl p-6 border border-white/50 shadow-2xl shadow-blue-500/10 hover:shadow-blue-500/20 transition-shadow duration-300 overflow-hidden"
+      className="relative bg-white rounded-3xl p-6 shadow-2xl overflow-hidden"
+      style={{
+        boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.9), 0 20px 40px rgba(0,0,0,0.08), 0 10px 20px rgba(59,130,246,0.05)',
+        border: '2px solid rgba(226,232,240,0.8)'
+      }}
     >
+      {/* Animated geometric background pattern */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <svg width="100%" height="100%">
+          <pattern id="score-pattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+            <circle cx="30" cy="30" r="2" fill="#3b82f6" />
+            <rect x="0" y="0" width="1" height="60" fill="#8b5cf6" />
+            <rect x="0" y="0" width="60" height="1" fill="#8b5cf6" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#score-pattern)" />
+        </svg>
+      </div>
+
+      {/* Floating animated shape */}
       <motion.div
         animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.15, 0.1],
+          y: [-10, 10, -10],
+          x: [-5, 5, -5],
+          rotate: [0, 5, -5, 0],
         }}
-        transition={{ duration: 4, repeat: Infinity }}
-        className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full blur-3xl pointer-events-none"
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -top-16 -right-16 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"
+      />
+      <motion.div
+        animate={{
+          y: [10, -10, 10],
+          x: [5, -5, 5],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -bottom-12 -left-12 w-28 h-28 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"
       />
       
       <motion.h2
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 }}
-        className="text-2xl font-black bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent mb-2 relative z-10"
+        className="text-2xl font-black text-gray-900 mb-2 relative z-10"
+        style={{
+          textShadow: '2px 2px 0 rgba(59,130,246,0.08), 3px 3px 0 rgba(139,92,246,0.04)',
+        }}
       >
         Analysis Scores
       </motion.h2>
@@ -118,20 +181,29 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
         <p className="text-sm text-gray-600">by {report.repository?.owner || 'Unknown'}</p>
         <div className="flex items-center gap-3 mt-3 flex-wrap">
           <motion.span 
-            whileHover={{ scale: 1.1 }}
-            className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-full text-sm font-medium text-gray-700 border border-yellow-200/50"
+            whileHover={{ scale: 1.05, y: -2 }}
+            className="inline-flex items-center gap-1 px-3 py-1.5 bg-yellow-50 rounded-full text-sm font-medium text-gray-700 border-2 border-yellow-200"
+            style={{
+              boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.8), 0 2px 8px rgba(234,179,8,0.15)'
+            }}
           >
             ⭐ {report.repository?.stars || 0}
           </motion.span>
           <motion.span 
-            whileHover={{ scale: 1.1 }}
-            className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-full text-sm font-medium text-gray-700 border border-blue-200/50"
+            whileHover={{ scale: 1.05, y: -2 }}
+            className="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 rounded-full text-sm font-medium text-gray-700 border-2 border-blue-200"
+            style={{
+              boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.8), 0 2px 8px rgba(59,130,246,0.15)'
+            }}
           >
             🔱 {report.repository?.forks || 0}
           </motion.span>
           <motion.span 
-            whileHover={{ scale: 1.1 }}
-            className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-purple-50 to-pink-50 rounded-full text-sm font-bold text-purple-700 border border-purple-200/50"
+            whileHover={{ scale: 1.05, y: -2 }}
+            className="inline-flex items-center px-3 py-1.5 bg-purple-50 rounded-full text-sm font-bold text-purple-700 border-2 border-purple-200"
+            style={{
+              boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.8), 0 2px 8px rgba(168,85,247,0.15)'
+            }}
           >
             {report.repository?.primary_language || 'Unknown'}
           </motion.span>
@@ -142,16 +214,27 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
-        className="flex flex-col items-center justify-center mb-8 p-6 bg-gradient-to-br from-blue-50/50 to-purple-50/50 rounded-2xl border border-blue-100/50 relative overflow-hidden"
+        className="flex flex-col items-center justify-center mb-8 p-6 bg-blue-50/30 rounded-2xl relative overflow-hidden"
+        style={{
+          border: '2px solid rgba(191,219,254,0.5)',
+          boxShadow: 'inset 0 2px 8px rgba(59,130,246,0.03), 0 4px 12px rgba(59,130,246,0.05)'
+        }}
       >
+        {/* Rotating decorative squares */}
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 bg-gradient-to-r from-blue-400/5 to-purple-400/5"
+          className="absolute top-4 right-4 w-8 h-8 border-2 border-blue-300/30"
+        />
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-4 left-4 w-6 h-6 border-2 border-purple-300/30"
+          style={{ borderRadius: '30%' }}
         />
         <CircularProgress 
           score={report.overall_score} 
-          gradient={getScoreGradient(report.overall_score)}
+          color={getSolidColor(report.overall_score)}
           size={120}
         />
         <motion.p
@@ -174,9 +257,15 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
             whileHover={{ x: 4, scale: 1.02 }}
             className="group"
           >
-            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50/50 to-white/50 hover:from-gray-50 hover:to-white rounded-2xl border border-gray-100/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5">
+            <div 
+              className="flex items-center justify-between p-4 bg-gray-50 hover:bg-white rounded-2xl transition-all duration-300"
+              style={{
+                border: '2px solid rgba(226,232,240,0.6)',
+                boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.8), 0 2px 8px rgba(0,0,0,0.03)',
+              }}
+            >
               <div className="flex items-center gap-4 flex-1">
-                <CircularProgress score={item.score} gradient={item.gradient} size={60} />
+                <CircularProgress score={item.score} color={item.color} size={60} />
                 <div>
                   <p className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{item.name}</p>
                   <motion.p
@@ -186,6 +275,13 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
                   </motion.p>
                 </div>
               </div>
+              {/* Decorative corner accent */}
+              <motion.div 
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: item.color, opacity: 0.4 }}
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
             </div>
           </motion.div>
         ))}
@@ -196,7 +292,7 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
-          className="mt-6 pt-6 border-t border-gray-200/50"
+          className="mt-6 pt-6 border-t-2 border-gray-200/50"
         >
           <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
             <span className="text-xl">🏛️</span>
@@ -206,30 +302,42 @@ export function ScoresOverview({ report }: ScoresOverviewProps) {
             {report.architecture.signals
               .filter((signal) => signal.confidence >= 50)
               .slice(0, 3)
-              .map((signal, idx) => (
-                <motion.div 
-                  key={idx} 
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.1 + idx * 0.1 }}
-                  whileHover={{ scale: 1.02, x: 4 }}
-                  className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50/50 to-purple-50/50 rounded-xl border border-blue-100/50 hover:border-blue-200/50 transition-all"
-                >
-                  <span className="text-gray-700 font-medium">{signal.pattern}</span>
-                  <motion.span 
-                    whileHover={{ scale: 1.1 }}
-                    className={`px-3 py-1 rounded-full text-xs font-bold ${
-                      signal.confidence_level === 'High Confidence'
-                        ? 'bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 border border-green-200'
-                        : signal.confidence_level === 'Detected'
-                        ? 'bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 border border-blue-200'
-                        : 'bg-gradient-to-r from-yellow-100 to-orange-100 text-yellow-700 border border-yellow-200'
-                    }`}
+              .map((signal, idx) => {
+                const confidenceColor = 
+                  signal.confidence_level === 'High Confidence' ? '#22c55e' :
+                  signal.confidence_level === 'Detected' ? '#3b82f6' : '#eab308'
+                
+                return (
+                  <motion.div 
+                    key={idx} 
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 1.1 + idx * 0.1 }}
+                    whileHover={{ scale: 1.02, x: 4 }}
+                    className="flex items-center justify-between p-3 bg-blue-50/50 rounded-xl transition-all"
+                    style={{
+                      border: '2px solid rgba(191,219,254,0.4)',
+                      boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.8), 0 2px 6px rgba(59,130,246,0.05)'
+                    }}
                   >
-                    {signal.confidence.toFixed(0)}%
-                  </motion.span>
-                </motion.div>
-              ))}
+                    <span className="text-gray-700 font-medium">{signal.pattern}</span>
+                    <motion.span 
+                      whileHover={{ scale: 1.1 }}
+                      className="px-3 py-1 rounded-full text-xs font-bold"
+                      style={{
+                        backgroundColor: signal.confidence_level === 'High Confidence' ? '#dcfce7' :
+                                       signal.confidence_level === 'Detected' ? '#dbeafe' : '#fef3c7',
+                        color: signal.confidence_level === 'High Confidence' ? '#15803d' :
+                               signal.confidence_level === 'Detected' ? '#1e40af' : '#a16207',
+                        border: `2px solid ${confidenceColor}`,
+                        boxShadow: `0 2px 8px ${confidenceColor}20`
+                      }}
+                    >
+                      {signal.confidence.toFixed(0)}%
+                    </motion.span>
+                  </motion.div>
+                )
+              })}
           </div>
         </motion.div>
       )}
