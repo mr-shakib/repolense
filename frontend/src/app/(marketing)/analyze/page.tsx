@@ -293,12 +293,12 @@ export default function AnalyzePage() {
               )}
 
               {/* Analysis Progress - 3D Animation */}
-              {loading && analysisId && (
+              {loading && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-center mb-2">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 mr-3"></div>
                     <p className="text-blue-900 font-medium">
-                      Analyzing repository...
+                      {analysisId ? 'Analyzing repository...' : 'Submitting request...'}
                     </p>
                   </div>
                   
