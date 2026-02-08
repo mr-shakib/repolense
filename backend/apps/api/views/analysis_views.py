@@ -10,6 +10,7 @@ from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 
 from apps.domain.models import Analysis, Report
 from apps.domain.services import AnalysisService
@@ -36,7 +37,8 @@ class AnalysisCreateView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         repo_url = serializer.validated_data['repository_url']
-        github_token = serializer.validated_data.get('github_token')
+        # Get GitHub token from environment variables
+        github_token = getattr(settings, 'GITHUB_ACCESS_TOKEN', None)
         
         try:
             service = AnalysisService()

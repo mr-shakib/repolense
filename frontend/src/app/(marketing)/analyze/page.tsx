@@ -30,7 +30,6 @@ const ANALYSIS_PHASES = [
 export default function AnalyzePage() {
   const [formData, setFormData] = useState<AnalysisRequest>({
     repository_url: '',
-    github_token: '',
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -224,16 +223,16 @@ export default function AnalyzePage() {
         />
       </div>
 
-      <div className="relative z-10 py-12 px-4">
+      <div className="relative z-10 py-6 px-4">
         {/* Creative Hero Section */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center mb-16"
+          className="max-w-4xl mx-auto text-center mb-6"
         >
           {/* Decorative Elements */}
-          <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="flex items-center justify-center gap-3 mb-3">
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -257,14 +256,14 @@ export default function AnalyzePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-6xl md:text-7xl font-black text-gray-900 mb-6 leading-tight"
+            className="text-4xl md:text-5xl font-black text-gray-900 mb-3 leading-tight"
             style={{
               textShadow: '3px 3px 0 rgba(59,130,246,0.1), 6px 6px 0 rgba(139,92,246,0.05)'
             }}
           >
             Unlock Repository
             <br />
-            <span className="relative inline-block mt-2">
+            <span className="relative inline-block mt-1">
               Intelligence
               <motion.span
                 className="absolute -bottom-2 left-0 right-0 h-2 bg-blue-500 rounded-full"
@@ -282,7 +281,7 @@ export default function AnalyzePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed"
+            className="text-base text-gray-600 max-w-2xl mx-auto"
           >
             Transform your codebase into actionable insights with cutting-edge AI analysis
           </motion.p>
@@ -292,8 +291,8 @@ export default function AnalyzePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="flex flex-wrap items-center justify-center gap-4 mt-8"
-          >
+            className="flex flex-wrap items-center justify-center gap-3 mt-4">
+          
             {[
               { icon: '⚡', label: '60-90s', desc: 'Analysis Time' },
               { icon: '🎯', label: '6 Metrics', desc: 'Comprehensive' },
@@ -301,16 +300,16 @@ export default function AnalyzePage() {
             ].map((stat, i) => (
               <motion.div
                 key={i}
-                whileHover={{ y: -4, scale: 1.05 }}
-                className="flex items-center gap-3 px-5 py-3 bg-white rounded-2xl border-2 border-gray-200"
+                whileHover={{ y: -2, scale: 1.03 }}
+                className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl border-2 border-gray-200"
                 style={{
-                  boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.9), 0 8px 24px rgba(0,0,0,0.06)'
+                  boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.9), 0 4px 12px rgba(0,0,0,0.04)'
                 }}
               >
-                <span className="text-2xl">{stat.icon}</span>
+                <span className="text-xl">{stat.icon}</span>
                 <div className="text-left">
-                  <p className="text-sm font-bold text-gray-900">{stat.label}</p>
-                  <p className="text-xs text-gray-500">{stat.desc}</p>
+                  <p className="text-xs font-bold text-gray-900">{stat.label}</p>
+                  <p className="text-[10px] text-gray-500">{stat.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -318,7 +317,7 @@ export default function AnalyzePage() {
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-4">
             {/* Main Form - Takes 2 columns */}
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
@@ -329,13 +328,13 @@ export default function AnalyzePage() {
               {/* Example Repos - Compact Design */}
               {!loading && (
                 <motion.div 
-                  className="mb-6"
-                  whileHover={{ y: -2 }}
+                  className="mb-3"
+                  whileHover={{ y: -1 }}
                 >
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-                      <span className="text-sm font-bold text-gray-700">Quick Start</span>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+                      <span className="text-xs font-bold text-gray-700">Quick Start</span>
                     </div>
                     {recentAnalyses.length > 0 && (
                       <button
@@ -354,11 +353,11 @@ export default function AnalyzePage() {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.9 + i * 0.1 }}
-                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileHover={{ scale: 1.03, y: -1 }}
                         whileTap={{ scale: 0.95 }}
-                        className="relative px-4 py-2.5 bg-white text-sm font-semibold text-gray-700 rounded-xl border-2 border-gray-200 hover:border-blue-300 transition-all overflow-hidden group"
+                        className="relative px-3 py-1.5 bg-white text-xs font-semibold text-gray-700 rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-all overflow-hidden group"
                         style={{
-                          boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+                          boxShadow: '0 1px 4px rgba(0,0,0,0.03)'
                         }}
                       >
                         <motion.div
@@ -367,8 +366,8 @@ export default function AnalyzePage() {
                           whileHover={{ x: 0 }}
                           transition={{ duration: 0.3 }}
                         />
-                        <span className="relative z-10 flex items-center gap-2">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+                        <span className="relative z-10 flex items-center gap-1.5">
+                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
                           </svg>
                           {repo.name}
@@ -384,20 +383,20 @@ export default function AnalyzePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1 }}
-                className="bg-white rounded-3xl p-8 relative overflow-hidden"
+                className="bg-white rounded-2xl p-5 relative overflow-hidden"
                 style={{
                   border: '2px solid rgba(226,232,240,0.8)',
-                  boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.9), 0 20px 60px rgba(0,0,0,0.08)'
+                  boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.9), 0 10px 30px rgba(0,0,0,0.06)'
                 }}
               >
                 {/* Decorative corner elements */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-bl-full opacity-50" />
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-50 rounded-tr-full opacity-50" />
+                <div className="absolute top-0 right-0 w-20 h-20 bg-blue-50 rounded-bl-full opacity-50" />
+                <div className="absolute bottom-0 left-0 w-16 h-16 bg-purple-50 rounded-tr-full opacity-50" />
 
-                <form onSubmit={handleSubmit} className="relative space-y-6">
+                <form onSubmit={handleSubmit} className="relative space-y-4">
                   {/* Repository URL */}
                   <div>
-                    <label htmlFor="repository_url" className="flex items-center gap-2 text-sm font-bold text-gray-900 mb-3">
+                    <label htmlFor="repository_url" className="flex items-center gap-2 text-xs font-bold text-gray-900 mb-2">
                       <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                       </svg>
@@ -412,7 +411,7 @@ export default function AnalyzePage() {
                         placeholder="https://github.com/owner/repository"
                         value={formData.repository_url}
                         onChange={(e) => setFormData({ ...formData, repository_url: e.target.value })}
-                        className={`w-full px-5 py-4 pr-12 border-2 ${
+                        className={`w-full px-4 py-3 pr-12 border-2 text-sm ${
                           urlValid === false
                             ? 'border-red-300 focus:ring-red-500 bg-red-50/50'
                             : urlValid === true
@@ -455,46 +454,11 @@ export default function AnalyzePage() {
                         </motion.div>
                       )}
                     </div>
-                    <p className="mt-2.5 text-sm text-gray-500 flex items-center gap-2">
+                    <p className="mt-1.5 text-xs text-gray-500 flex items-center gap-1.5">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                       Paste any public GitHub repository URL
-                    </p>
-                  </div>
-
-                  {/* GitHub Token */}
-                  <div>
-                    <label htmlFor="github_token" className="flex items-center gap-2 text-sm font-bold text-gray-900 mb-3">
-                      <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                      </svg>
-                      GitHub Token
-                      <span className="text-xs font-normal text-gray-500 ml-1">(Optional)</span>
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="password"
-                        id="github_token"
-                        placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-                        value={formData.github_token}
-                        onChange={(e) => setFormData({ ...formData, github_token: e.target.value })}
-                        className="w-full px-5 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-purple-500 focus:border-transparent bg-gray-50 text-gray-900 font-medium transition-all duration-200 placeholder:text-gray-400"
-                        style={{
-                          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.03)'
-                        }}
-                      />
-                      <div className="absolute right-4 top-4 text-gray-400">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <p className="mt-2.5 text-sm text-gray-500 flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
-                      For private repos and higher API rate limits
                     </p>
                   </div>
 
@@ -503,18 +467,18 @@ export default function AnalyzePage() {
                     <motion.div
                       initial={{ opacity: 0, y: -10, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      className="bg-red-50 border-2 border-red-200 rounded-2xl p-5 relative overflow-hidden"
+                      className="bg-red-50 border-2 border-red-200 rounded-xl p-3 relative overflow-hidden"
                     >
-                      <div className="absolute top-0 left-0 w-full h-1 bg-red-500" />
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                          <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <div className="absolute top-0 left-0 w-full h-0.5 bg-red-500" />
+                      <div className="flex items-start gap-2">
+                        <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                           </svg>
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm font-bold text-red-900 mb-1">Analysis Failed</p>
-                          <p className="text-sm text-red-700">{error}</p>
+                          <p className="text-xs font-bold text-red-900 mb-0.5">Analysis Failed</p>
+                          <p className="text-xs text-red-700">{error}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -539,11 +503,11 @@ export default function AnalyzePage() {
                     disabled={loading || urlValid === false}
                     whileHover={{ scale: loading || urlValid === false ? 1 : 1.02 }}
                     whileTap={{ scale: loading || urlValid === false ? 1 : 0.98 }}
-                    className="relative w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-bold py-5 px-8 rounded-2xl transition-all duration-300 disabled:cursor-not-allowed overflow-hidden group"
+                    className="relative w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 disabled:cursor-not-allowed overflow-hidden group"
                     style={{
                       boxShadow: loading || urlValid === false 
                         ? 'none' 
-                        : 'inset 0 1px 0 0 rgba(255,255,255,0.2), 0 12px 40px rgba(59,130,246,0.4)',
+                        : 'inset 0 1px 0 0 rgba(255,255,255,0.2), 0 8px 24px rgba(59,130,246,0.3)',
                     }}
                   >
                     {/* Animated background shimmer */}
@@ -555,7 +519,7 @@ export default function AnalyzePage() {
                       />
                     )}
                     
-                    <span className="relative z-10 flex items-center justify-center gap-3 text-lg">
+                    <span className="relative z-10 flex items-center justify-center gap-2 text-base">
                       {loading ? (
                         <>
                           <motion.div
@@ -585,7 +549,7 @@ export default function AnalyzePage() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1.2 }}
-                      className="flex items-center justify-center gap-6 pt-4 text-xs text-gray-500"
+                      className="flex items-center justify-center gap-4 pt-2 text-[10px] text-gray-500"
                     >
                       <div className="flex items-center gap-2">
                         <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
@@ -616,28 +580,28 @@ export default function AnalyzePage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1.1 }}
-              className="lg:col-span-1 space-y-4"
+              className="lg:col-span-1 space-y-3"
             >
               {!loading && (
                 <>
                   {/* What You Get Card */}
                   <motion.div
-                    whileHover={{ y: -4 }}
-                    className="bg-white rounded-3xl p-6 border-2 border-gray-200"
+                    whileHover={{ y: -2 }}
+                    className="bg-white rounded-2xl p-4 border-2 border-gray-200"
                     style={{
-                      boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.9), 0 12px 32px rgba(0,0,0,0.06)'
+                      boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.9), 0 6px 16px rgba(0,0,0,0.04)'
                     }}
                   >
-                    <div className="flex items-center gap-3 mb-5">
-                      <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
-                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                           <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <h3 className="font-black text-gray-900 text-lg">Analysis Includes</h3>
+                      <h3 className="font-black text-gray-900 text-sm">Analysis Includes</h3>
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-2">
                       {[
                         { icon: '🏗️', title: 'Architecture', desc: 'Pattern detection & design analysis' },
                         { icon: '📊', title: 'Code Quality', desc: 'Metrics & maintainability scores' },
@@ -650,12 +614,12 @@ export default function AnalyzePage() {
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 1.2 + i * 0.1 }}
-                          className="flex items-start gap-3 p-3 rounded-xl hover:bg-blue-50 transition-colors group cursor-default"
+                          className="flex items-start gap-2 p-2 rounded-lg hover:bg-blue-50 transition-colors group cursor-default"
                         >
-                          <span className="text-2xl group-hover:scale-110 transition-transform">{item.icon}</span>
+                          <span className="text-lg group-hover:scale-110 transition-transform">{item.icon}</span>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-bold text-gray-900">{item.title}</p>
-                            <p className="text-xs text-gray-600 leading-relaxed">{item.desc}</p>
+                            <p className="text-xs font-bold text-gray-900">{item.title}</p>
+                            <p className="text-[10px] text-gray-600">{item.desc}</p>
                           </div>
                         </motion.div>
                       ))}
@@ -668,20 +632,20 @@ export default function AnalyzePage() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 1.4 }}
                     whileHover={{ scale: 1.02 }}
-                    className="bg-purple-50 border-2 border-purple-200 rounded-2xl p-5"
+                    className="bg-purple-50 border-2 border-purple-200 rounded-xl p-3"
                   >
-                    <div className="flex items-start gap-3">
+                    <div className="flex items-start gap-2">
                       <motion.div
                         animate={{ rotate: [0, 10, -10, 0] }}
                         transition={{ duration: 2, repeat: Infinity }}
-                        className="text-3xl"
+                        className="text-2xl"
                       >
                         💡
                       </motion.div>
                       <div>
-                        <p className="text-sm font-bold text-purple-900 mb-1">Pro Tip</p>
-                        <p className="text-xs text-purple-700 leading-relaxed">
-                          Add a GitHub token to analyze private repos and avoid rate limits
+                        <p className="text-xs font-bold text-purple-900 mb-0.5">Pro Tip</p>
+                        <p className="text-[10px] text-purple-700">
+                          GitHub authentication configured server-side for secure repo access
                         </p>
                       </div>
                     </div>

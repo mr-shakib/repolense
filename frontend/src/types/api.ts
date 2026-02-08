@@ -12,7 +12,6 @@ export interface HealthCheckResponse {
 
 export interface AnalysisRequest {
   repository_url: string
-  github_token: string  // Required for private repos
 }
 
 export interface Analysis {

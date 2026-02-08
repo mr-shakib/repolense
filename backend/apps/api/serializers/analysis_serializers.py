@@ -39,17 +39,11 @@ class AnalysisCreateSerializer(serializers.Serializer):
     """
     Serializer for creating new analysis.
     
-    Accepts repository URL and optional GitHub token.
+    Accepts repository URL only. GitHub token is configured server-side.
     """
     repository_url = serializers.URLField(
         required=True,
         help_text="GitHub repository URL (e.g., https://github.com/owner/repo)"
-    )
-    github_token = serializers.CharField(
-        required=False,
-        allow_blank=True,
-        write_only=True,
-        help_text="Optional GitHub personal access token for higher rate limits"
     )
 
 

@@ -133,6 +133,9 @@ OPENAI_API_KEY = config('OPENAI_API_KEY', default='')
 ANTHROPIC_API_KEY = config('ANTHROPIC_API_KEY', default='')
 AI_PROVIDER = config('AI_PROVIDER', default='openai')  # 'openai' or 'anthropic'
 
+# GitHub Configuration
+GITHUB_ACCESS_TOKEN = config('GITHUB_ACCESS_TOKEN', default=None)
+
 # Analysis settings
 MAX_REPO_SIZE_MB = config('MAX_REPO_SIZE_MB', default=100, cast=int)
 ANALYSIS_TIMEOUT_SECONDS = config('ANALYSIS_TIMEOUT_SECONDS', default=300, cast=int)
