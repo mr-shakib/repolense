@@ -157,21 +157,21 @@ export default function AnalyzePage() {
   }
 
   return (
-    <main className="min-h-screen relative overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-900">
-      {/* Animated background elements */}
+    <main className="min-h-screen relative overflow-hidden bg-white">
+      {/* Animated background elements - subtle on white */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-400/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-50 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-50 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-50 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="relative z-10 py-12 px-4">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-10">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-3">
+          <h1 className="text-5xl font-bold text-gray-900 mb-3">
             Analyze Repository
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-xl mx-auto">
             Get AI-powered insights on architecture, quality, and team collaboration
           </p>
         </div>
@@ -179,15 +179,15 @@ export default function AnalyzePage() {
         <div className="max-w-2xl mx-auto space-y-6">
           {/* Example Repos */}
           {!loading && (
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 p-6">
+            <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <h3 className="text-sm font-semibold text-gray-700">
                   Try with examples
                 </h3>
                 {recentAnalyses.length > 0 && (
                   <button
                     onClick={() => setShowSidebar(!showSidebar)}
-                    className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                    className="text-sm text-blue-600 hover:underline"
                   >
                     {showSidebar ? 'Hide' : 'Show'} recent
                   </button>
@@ -198,7 +198,7 @@ export default function AnalyzePage() {
                   <button
                     key={repo.url}
                     onClick={() => handleExampleClick(repo.url)}
-                    className="px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg transition-all duration-200 hover:scale-105"
+                    className="px-4 py-2 bg-gray-50 hover:bg-blue-50 text-sm font-medium text-gray-700 rounded-lg transition-all duration-200 hover:scale-105 border border-gray-200"
                   >
                     {repo.name}
                   </button>
@@ -208,11 +208,11 @@ export default function AnalyzePage() {
           )}
 
           {/* Main Form Card */}
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-8">
+          <div className="bg-white border border-gray-200 rounded-2xl shadow-lg p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Repository URL */}
               <div>
-                <label htmlFor="repository_url" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="repository_url" className="block text-sm font-semibold text-gray-700 mb-2">
                   Repository URL *
                 </label>
                 <div className="relative">
@@ -225,11 +225,11 @@ export default function AnalyzePage() {
                     onChange={(e) => setFormData({ ...formData, repository_url: e.target.value })}
                     className={`w-full px-4 py-3 pr-10 border ${
                       urlValid === false
-                        ? 'border-red-300 dark:border-red-700 focus:ring-red-500'
+                        ? 'border-red-300 focus:ring-red-500'
                         : urlValid === true
-                        ? 'border-green-300 dark:border-green-700 focus:ring-green-500'
-                        : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500'
-                    } rounded-xl focus:ring-2 focus:border-transparent dark:bg-gray-700/50 dark:text-white transition-all duration-200`}
+                        ? 'border-green-300 focus:ring-green-500'
+                        : 'border-gray-300 focus:ring-blue-500'
+                    } rounded-xl focus:ring-2 focus:border-transparent bg-white text-gray-900 transition-all duration-200`}
                   />
                   {urlValid === true && (
                     <div className="absolute right-3 top-3.5 text-green-500">
@@ -246,14 +246,14 @@ export default function AnalyzePage() {
                     </div>
                   )}
                 </div>
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mt-2 text-sm text-gray-500">
                   Enter a valid GitHub repository URL
                 </p>
               </div>
 
               {/* GitHub Token */}
               <div>
-                <label htmlFor="github_token" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="github_token" className="block text-sm font-semibold text-gray-700 mb-2">
                   GitHub Token (Optional)
                 </label>
                 <input
@@ -262,31 +262,31 @@ export default function AnalyzePage() {
                   placeholder="ghp_xxxxxxxxxxxx"
                   value={formData.github_token}
                   onChange={(e) => setFormData({ ...formData, github_token: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700/50 dark:text-white transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900 transition-all duration-200"
                 />
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mt-2 text-sm text-gray-500">
                   For private repositories or higher rate limits
                 </p>
               </div>
 
               {/* Error Message */}
               {error && (
-                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4">
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4">
                   <div className="flex items-start">
                     <svg className="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                     </svg>
-                    <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
+                    <p className="text-sm text-red-800">{error}</p>
                   </div>
                 </div>
               )}
 
               {/* Analysis Progress */}
               {loading && analysisId && (
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
                   <div className="flex items-center mb-4">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 dark:border-blue-400 mr-3"></div>
-                    <p className="text-blue-900 dark:text-blue-100 font-medium">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 mr-3"></div>
+                    <p className="text-blue-900 font-medium">
                       Analyzing repository...
                     </p>
                   </div>
@@ -305,7 +305,7 @@ export default function AnalyzePage() {
                             ? 'bg-green-500 text-white'
                             : index === currentPhase
                             ? 'bg-blue-500 text-white animate-pulse'
-                            : 'bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-400'
+                            : 'bg-gray-300 text-gray-600'
                         }`}>
                           {index < currentPhase ? (
                             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -318,12 +318,12 @@ export default function AnalyzePage() {
                         <div className="flex-1">
                           <p className={`text-sm font-medium ${
                             index <= currentPhase
-                              ? 'text-gray-900 dark:text-gray-100'
-                              : 'text-gray-500 dark:text-gray-500'
+                              ? 'text-gray-900'
+                              : 'text-gray-500'
                           }`}>
                             {phase.name}
                           </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
+                          <p className="text-xs text-gray-500">
                             {phase.description}
                           </p>
                         </div>
@@ -331,7 +331,7 @@ export default function AnalyzePage() {
                     ))}
                   </div>
                   
-                  <p className="text-xs text-blue-700 dark:text-blue-300 mt-4 text-center">
+                  <p className="text-xs text-blue-700 mt-4 text-center">
                     This may take 60-90 seconds
                   </p>
                 </div>
@@ -362,9 +362,9 @@ export default function AnalyzePage() {
 
           {/* Benefits Section */}
           {!loading && (
-            <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 p-6">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                <svg className="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+            <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+              <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
+                <svg className="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                   <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
                 </svg>
@@ -378,9 +378,9 @@ export default function AnalyzePage() {
                   { icon: '👥', text: 'Team collaboration insights and hiring recommendations' },
                   { icon: '🤖', text: 'AI-generated actionable recommendations with effort estimates' },
                 ].map((item, index) => (
-                  <div key={index} className="flex items-start group hover:bg-gray-50 dark:hover:bg-gray-700/30 p-2 rounded-lg transition-colors duration-200">
+                  <div key={index} className="flex items-start group hover:bg-white p-2 rounded-lg transition-colors duration-200">
                     <span className="text-xl mr-3 group-hover:scale-110 transition-transform">{item.icon}</span>
-                    <span className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{item.text}</span>
+                    <span className="text-sm text-gray-600 leading-relaxed">{item.text}</span>
                   </div>
                 ))}
               </div>
@@ -391,14 +391,14 @@ export default function AnalyzePage() {
 
       {/* Recent Analyses Sidebar */}
       {showSidebar && recentAnalyses.length > 0 && (
-        <div className="fixed right-0 top-0 h-full w-80 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-2xl border-l border-gray-200 dark:border-gray-700 p-6 overflow-y-auto z-50">
+        <div className="fixed right-0 top-0 h-full w-80 bg-white shadow-2xl border-l border-gray-200 p-6 overflow-y-auto z-50">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-gray-900">
               Recent Analyses
             </h3>
             <button
               onClick={() => setShowSidebar(false)}
-              className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+              className="text-gray-500 hover:text-gray-700"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -410,12 +410,12 @@ export default function AnalyzePage() {
               <a
                 key={analysis.id}
                 href={`/report/${analysis.id}`}
-                className="block p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                className="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
               >
-                <p className="text-sm font-medium text-gray-900 dark:text-white truncate mb-1">
+                <p className="text-sm font-medium text-gray-900 truncate mb-1">
                   {analysis.repo_url.replace('https://github.com/', '')}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500">
                   {new Date(analysis.created_at).toLocaleDateString()}
                 </p>
               </a>
