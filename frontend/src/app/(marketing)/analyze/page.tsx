@@ -2,6 +2,17 @@
 
 import { useState, useEffect } from 'react'
 import { AnalysisRequest } from '@/types/api'
+import dynamic from 'next/dynamic'
+
+// Dynamically import the 3D component to avoid SSR issues
+const AnalysisAnimation3D = dynamic(() => import('@/components/analysis/AnalysisAnimation3D'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[400px] bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-xl flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+    </div>
+  )
+})
 
 interface RecentAnalysis {
   id: string
@@ -281,57 +292,23 @@ export default function AnalyzePage() {
                 </div>
               )}
 
-              {/* Analysis Progress */}
+              {/* Analysis Progress - 3D Animation */}
               {loading && analysisId && (
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
-                  <div className="flex items-center mb-4">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-center mb-2">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 mr-3"></div>
                     <p className="text-blue-900 font-medium">
                       Analyzing repository...
                     </p>
                   </div>
                   
-                  {/* Progress Steps */}
-                  <div className="space-y-3 mt-4">
-                    {ANALYSIS_PHASES.map((phase, index) => (
-                      <div
-                        key={phase.name}
-                        className={`flex items-center transition-all duration-500 ${
-                          index <= currentPhase ? 'opacity-100' : 'opacity-40'
-                        }`}
-                      >
-                        <div className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 transition-colors duration-300 ${
-                          index < currentPhase
-                            ? 'bg-green-500 text-white'
-                            : index === currentPhase
-                            ? 'bg-blue-500 text-white animate-pulse'
-                            : 'bg-gray-300 text-gray-600'
-                        }`}>
-                          {index < currentPhase ? (
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                          ) : (
-                            <span className="text-xs font-bold">{index + 1}</span>
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <p className={`text-sm font-medium ${
-                            index <= currentPhase
-                              ? 'text-gray-900'
-                              : 'text-gray-500'
-                          }`}>
-                            {phase.name}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {phase.description}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  {/* 3D Animation */}
+                  <AnalysisAnimation3D 
+                    phases={ANALYSIS_PHASES} 
+                    currentPhase={currentPhase} 
+                  />
                   
-                  <p className="text-xs text-blue-700 mt-4 text-center">
+                  <p className="text-xs text-blue-700 text-center">
                     This may take 60-90 seconds
                   </p>
                 </div>
