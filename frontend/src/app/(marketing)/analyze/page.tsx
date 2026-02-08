@@ -316,14 +316,20 @@ export default function AnalyzePage() {
           </motion.div>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-4">
+        <div className={`mx-auto transition-all duration-500 ${
+          loading ? 'max-w-6xl' : 'max-w-4xl'
+        }`}>
+          <div className={`grid gap-4 transition-all duration-500 ${
+            loading ? 'lg:grid-cols-1' : 'lg:grid-cols-3'
+          }`}>
             {/* Main Form - Takes 2 columns */}
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8 }}
-              className="lg:col-span-2"
+              className={`transition-all duration-500 ${
+                loading ? 'lg:col-span-1' : 'lg:col-span-2'
+              }`}
             >
               {/* Example Repos - Compact Design */}
               {!loading && (
@@ -576,12 +582,14 @@ export default function AnalyzePage() {
             </motion.div>
 
             {/* Sidebar - Features List */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1.1 }}
-              className="lg:col-span-1 space-y-3"
-            >
+            {!loading && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ delay: 1.1 }}
+                className="lg:col-span-1 space-y-3"
+              >
               {!loading && (
                 <>
                   {/* What You Get Card */}
@@ -653,6 +661,7 @@ export default function AnalyzePage() {
                 </>
               )}
             </motion.div>
+            )}
           </div>
         </div>
       </div>
