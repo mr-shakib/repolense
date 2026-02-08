@@ -104,17 +104,70 @@ export default function AnalyzePage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-      })relative overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-900">
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Analysis failed')
+      }
+
+      setAnalysisId(data.id)
+      saveToRecent(data.id, formData.repository_url)
+      
+      // Poll for completion
+      pollAnalysisStatus(data.id)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
+      setLoading(false)
+    }
+  }
+
+  const pollAnalysisStatus = async (id: string) => {
+    const maxAttempts = 60 // 2 minutes max
+    let attempts = 0
+
+    const poll = async () => {
+      try {
+        const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://127.0.0.1:8000'
+        const response = await fetch(`${apiBaseUrl}/api/analyze/${id}/`)
+        const analysis = await response.json()
+
+        if (analysis.status === 'COMPLETED') {
+          setLoading(false)
+          // Redirect to report page
+          window.location.href = `/report/${id}`
+        } else if (analysis.status === 'FAILED') {
+          setError(analysis.error_message || 'Analysis failed')
+          setLoading(false)
+        } else if (attempts < maxAttempts) {
+          attempts++
+          setTimeout(poll, 2000) // Poll every 2 seconds
+        } else {
+          setError('Analysis timeout - please check status manually')
+          setLoading(false)
+        }
+      } catch (err) {
+        setError('Failed to check analysis status')
+        setLoading(false)
+      }
+    }
+
+    poll()
+  }
+
+  return (
+    <main className="min-h-screen relative overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-900">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-500" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-400/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="relative z-10 py-12 px-4">
         {/* Header */}
-        <div className="max-w-2xl mx-auto text-center mb-10 animate-fade-in">
+        <div className="max-w-2xl mx-auto text-center mb-10">
           <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-3">
             Analyze Repository
           </h1>
@@ -126,7 +179,7 @@ export default function AnalyzePage() {
         <div className="max-w-2xl mx-auto space-y-6">
           {/* Example Repos */}
           {!loading && (
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 p-6 animate-slide-up">
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 dark:border-gray-700/50 p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Try with examples
@@ -155,10 +208,10 @@ export default function AnalyzePage() {
           )}
 
           {/* Main Form Card */}
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-8 animate-slide-up delay-100">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Repository URL */}
-              <div className="group">
+              <div>
                 <label htmlFor="repository_url" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   Repository URL *
                 </label>
@@ -218,7 +271,7 @@ export default function AnalyzePage() {
 
               {/* Error Message */}
               {error && (
-                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4 animate-shake">
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4">
                   <div className="flex items-start">
                     <svg className="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -230,7 +283,7 @@ export default function AnalyzePage() {
 
               {/* Analysis Progress */}
               {loading && analysisId && (
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 animate-fade-in">
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
                   <div className="flex items-center mb-4">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 dark:border-blue-400 mr-3"></div>
                     <p className="text-blue-900 dark:text-blue-100 font-medium">
@@ -309,7 +362,7 @@ export default function AnalyzePage() {
 
           {/* Benefits Section */}
           {!loading && (
-            <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 p-6 animate-slide-up delay-200">
+            <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 p-6">
               <h3 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                 <svg className="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
@@ -338,7 +391,7 @@ export default function AnalyzePage() {
 
       {/* Recent Analyses Sidebar */}
       {showSidebar && recentAnalyses.length > 0 && (
-        <div className="fixed right-0 top-0 h-full w-80 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-2xl border-l border-gray-200 dark:border-gray-700 p-6 animate-slide-in-right overflow-y-auto z-50">
+        <div className="fixed right-0 top-0 h-full w-80 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-2xl border-l border-gray-200 dark:border-gray-700 p-6 overflow-y-auto z-50">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Recent Analyses
@@ -370,134 +423,6 @@ export default function AnalyzePage() {
           </div>
         </div>
       )}
-
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes slide-in-right {
-          from {
-            transform: translateX(100%);
-          }
-          to {
-            transform: translateX(0);
-          }
-        }
-        
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-10px); }
-          75% { transform: translateX(10px); }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out;
-        }
-        
-        .animate-slide-up {
-          animation: slide-up 0.6s ease-out;
-        }
-        
-        .animate-slide-up.delay-100 {
-          animation-delay: 0.1s;
-          opacity: 0;
-          animation-fill-mode: forwards;
-        }
-        
-        .animate-slide-up.delay-200 {
-          animation-delay: 0.2s;
-          opacity: 0;
-          animation-fill-mode: forwards;
-        }
-        
-        .animate-slide-in-right {
-          animation: slide-in-right 0.3s ease-out;
-        }
-        
-        .animate-shake {
-          animation: shake 0.5s ease-in-out;
-        }
-        
-        .delay-500 {
-          animation-delay: 2s;
-        }
-        
-        .delay-1000 {
-          animation-delay: 4s;
-        }
-      `}</style {loading && (
-              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                <div className="flex items-center">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 mr-3"></div>
-                  <p className="text-blue-800 dark:text-blue-200">
-                    {analysisId ? 'Analyzing repository... This may take 60-90 seconds' : 'Starting analysis...'}
-                  </p>
-                </div>
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center"
-            >
-              {loading ? (
-                <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                  Analyzing...
-                </>
-              ) : (
-                '🔍 Analyze Repository'
-              )}
-            </button>
-          </form>
-
-          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-3">What you'll get:</h3>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span>Architecture pattern detection and quality assessment</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span>Code quality metrics with maintainability scores</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span>SOLID principles and engineering best practices evaluation</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span>Team collaboration insights and hiring recommendations</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span>AI-generated actionable recommendations with effort estimates</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </main>
   )
 }
