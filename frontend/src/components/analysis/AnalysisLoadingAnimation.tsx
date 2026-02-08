@@ -84,15 +84,15 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 p-8">
+      <div className="relative z-10 p-8 lg:p-10">
         {/* Current Phase Display */}
-        <div className="flex flex-col items-center mb-8">
+        <div className="flex flex-col items-center mb-8 lg:mb-6">
           <motion.div
             key={currentPhase}
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="w-24 h-24 mb-4 relative"
+            className="w-20 h-20 lg:w-24 lg:h-24 mb-4 relative"
           >
             <motion.div
               className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-2xl"
@@ -121,7 +121,7 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-2xl font-bold text-gray-900 mb-2"
+            className="text-xl lg:text-2xl font-bold text-gray-900 mb-2"
           >
             {phases[currentPhase]?.name}
           </motion.h3>
@@ -131,14 +131,14 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-gray-600 text-center max-w-md"
+            className="text-sm lg:text-base text-gray-600 text-center max-w-md"
           >
             {phases[currentPhase]?.description}
           </motion.p>
         </div>
 
         {/* Progress Timeline */}
-        <div className="space-y-3">
+        <div className="space-y-3 lg:space-y-0 lg:flex lg:gap-4 lg:items-start">
           {phases.map((phase, index) => {
             const isCompleted = index < currentPhase
             const isActive = index === currentPhase
@@ -150,10 +150,10 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-4"
+                className="flex items-center gap-4 lg:flex-col lg:flex-1"
               >
                 {/* Status Indicator */}
-                <div className="relative">
+                <div className="relative lg:self-center">
                   <motion.div
                     className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm ${
                       isCompleted
@@ -205,23 +205,33 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
                     )}
                   </motion.div>
 
-                  {/* Connecting Line */}
+                  {/* Connecting Line - Vertical on mobile, Horizontal on desktop */}
                   {index < phases.length - 1 && (
-                    <motion.div
-                      className={`absolute left-1/2 top-full w-0.5 h-3 -ml-px ${
-                        index < currentPhase ? 'bg-green-500' : 'bg-gray-300'
-                      }`}
-                      initial={{ scaleY: 0 }}
-                      animate={{ scaleY: 1 }}
-                      transition={{ delay: index * 0.1 + 0.2 }}
-                    />
+                    <>
+                      <motion.div
+                        className={`absolute left-1/2 top-full w-0.5 h-3 -ml-px lg:hidden ${
+                          index < currentPhase ? 'bg-green-500' : 'bg-gray-300'
+                        }`}
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
+                        transition={{ delay: index * 0.1 + 0.2 }}
+                      />
+                      <motion.div
+                        className={`hidden lg:block absolute left-full top-1/2 h-0.5 w-4 -mt-px ${
+                          index < currentPhase ? 'bg-green-500' : 'bg-gray-300'
+                        }`}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ delay: index * 0.1 + 0.2 }}
+                      />
+                    </>
                   )}
                 </div>
 
                 {/* Phase Info */}
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0 lg:w-full">
                   <motion.div
-                    className={`px-4 py-3 rounded-xl ${
+                    className={`px-4 py-3 rounded-xl lg:text-center ${
                       isCompleted
                         ? 'bg-green-50 border border-green-200'
                         : isActive
@@ -241,10 +251,10 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
                         : {}
                     }
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between lg:flex-col lg:gap-2">
+                      <div className="min-w-0 flex-1 lg:w-full">
                         <p
-                          className={`font-semibold text-sm ${
+                          className={`font-semibold text-sm lg:text-center ${
                             isCompleted
                               ? 'text-green-900'
                               : isActive
@@ -255,7 +265,7 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
                           {phase.name}
                         </p>
                         <p
-                          className={`text-xs mt-0.5 ${
+                          className={`text-xs mt-0.5 lg:text-center ${
                             isCompleted
                               ? 'text-green-700'
                               : isActive
@@ -271,7 +281,7 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
                         <motion.div
                           animate={{ opacity: [1, 0.5, 1] }}
                           transition={{ duration: 1.5, repeat: Infinity }}
-                          className="ml-3 text-blue-600"
+                          className="ml-3 text-blue-600 lg:ml-0"
                         >
                           <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />

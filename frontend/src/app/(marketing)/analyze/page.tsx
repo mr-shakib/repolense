@@ -60,19 +60,19 @@ export default function AnalyzePage() {
 
   // Simulate analysis phases
   useEffect(() => {
-    if (loading && analysisId) {
+    if (loading) {
       const phaseInterval = setInterval(() => {
         setCurrentPhase(prev => {
           const next = prev + 1
           return next < ANALYSIS_PHASES.length ? next : prev
         })
-      }, 10000) // 10 seconds per phase
+      }, 8000) // 8 seconds per phase (48 seconds total for 6 phases)
 
       return () => clearInterval(phaseInterval)
     } else {
       setCurrentPhase(0)
     }
-  }, [loading, analysisId])
+  }, [loading])
 
   const handleExampleClick = (url: string) => {
     setFormData({ ...formData, repository_url: url })
