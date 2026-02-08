@@ -48,6 +48,7 @@ const phaseIcons = {
 
 export default function AnalysisLoadingAnimation({ phases, currentPhase }: AnalysisLoadingAnimationProps) {
   const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; delay: number }>>([])
+  const [isLargeScreen, setIsLargeScreen] = useState(false)
 
   useEffect(() => {
     // Generate random particles
@@ -58,6 +59,14 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
       delay: Math.random() * 2,
     }))
     setParticles(newParticles)
+
+    // Check screen size
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024)
+    }
+    checkScreenSize()
+    window.addEventListener('resize', checkScreenSize)
+    return () => window.removeEventListener('resize', checkScreenSize)
   }, [])
 
   return (
@@ -138,20 +147,27 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
         </div>
 
         {/* Progress Timeline */}
-        <div className="space-y-3 lg:space-y-0 lg:flex lg:gap-4 lg:items-start">
-          {phases.map((phase, index) => {
-            const isCompleted = index < currentPhase
-            const isActive = index === currentPhase
-            const isPending = index > currentPhase
+        <div className="space-y-3 lg:space-y-0 lg:overflow-hidden lg:relative">
+          <motion.div
+            className="lg:flex lg:gap-4 lg:items-start space-y-3 lg:space-y-0"
+            animate={{
+              x: isLargeScreen ? `${-currentPhase * 14}%` : 0
+            }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            {phases.map((phase, index) => {
+              const isCompleted = index < currentPhase
+              const isActive = index === currentPhase
+              const isPending = index > currentPhase
 
-            return (
-              <motion.div
-                key={phase.name}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-4 lg:flex-col lg:flex-1"
-              >
+              return (
+                <motion.div
+                  key={phase.name}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-center gap-4 lg:flex-col lg:flex-1 lg:min-w-[160px]"
+                >
                 {/* Status Indicator */}
                 <div className="relative lg:self-center">
                   <motion.div
@@ -295,6 +311,7 @@ export default function AnalysisLoadingAnimation({ phases, currentPhase }: Analy
               </motion.div>
             )
           })}
+          </motion.div>
         </div>
 
         {/* Progress Bar */}
