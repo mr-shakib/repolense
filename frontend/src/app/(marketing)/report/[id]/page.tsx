@@ -100,25 +100,60 @@ export default function ReportPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* Animated Background Elements */}
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 relative overflow-hidden">
+      {/* Creative Gradient Mesh Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* Animated gradient orbs */}
         <motion.div
           animate={{
+            x: [0, 100, 0],
+            y: [0, -100, 0],
             scale: [1, 1.2, 1],
-            opacity: [0.03, 0.05, 0.03],
+            opacity: [0.4, 0.6, 0.4],
           }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="absolute -top-40 -right-40 w-96 h-96 bg-blue-500 rounded-full blur-3xl"
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-400/30 to-cyan-400/30 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
+            x: [0, -120, 0],
+            y: [0, 100, 0],
             scale: [1, 1.3, 1],
-            opacity: [0.02, 0.04, 0.02],
+            opacity: [0.3, 0.5, 0.3],
           }}
-          transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-          className="absolute -bottom-40 -left-40 w-96 h-96 bg-indigo-500 rounded-full blur-3xl"
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
         />
+        <motion.div
+          animate={{
+            x: [0, -80, 0],
+            y: [0, -80, 0],
+            scale: [1, 1.15, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+          className="absolute top-1/3 left-1/3 w-[400px] h-[400px] bg-gradient-to-bl from-indigo-400/25 to-blue-400/25 rounded-full blur-3xl"
+        />
+        {/* Floating particles */}
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.2, 0.4, 0.2],
+            }}
+            transition={{
+              duration: 3 + i,
+              repeat: Infinity,
+              delay: i * 0.5,
+            }}
+            className="absolute w-2 h-2 bg-blue-400/40 rounded-full"
+            style={{
+              left: `${15 + i * 15}%`,
+              top: `${20 + i * 10}%`,
+            }}
+          />
+        ))}
       </div>
 
       <div className="relative z-10 py-8 px-4 max-w-7xl mx-auto">
@@ -131,47 +166,60 @@ export default function ReportPage() {
         >
           <motion.a
             href="/analyze"
-            whileHover={{ x: -4 }}
-            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium mb-4 group"
+            whileHover={{ x: -4, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium mb-6 group px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-blue-100/50 shadow-sm hover:shadow-md transition-all"
           >
             <motion.svg
               className="w-5 h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              whileHover={{ x: -2 }}
+              animate={{ x: [-2, 0, -2] }}
+              transition={{ duration: 2, repeat: Infinity }}
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </motion.svg>
-            <span>Analyze Another Repository</span>
+            <span>Back to Analyzer</span>
           </motion.a>
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-4xl font-bold text-gray-900 mb-2"
-          >
-            Analysis Report
-          </motion.h1>
           <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: "100px" }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="h-1 bg-blue-600 rounded-full"
-          />
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="inline-block"
+          >
+            <motion.h1
+              className="text-5xl md:text-6xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4"
+              animate={{
+                backgroundPosition: ['0%', '100%', '0%'],
+              }}
+              transition={{ duration: 8, repeat: Infinity }}
+              style={{ backgroundSize: '200% auto' }}
+            >
+              Analysis Report
+            </motion.h1>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "120px" }}
+              transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
+              className="h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-lg shadow-blue-500/50"
+            />
+          </motion.div>
         </motion.div>
 
         <div className="grid lg:grid-cols-4 gap-6">
-          {/* Sidebar with scores - Animated */}
+          {/* Sidebar with scores - Animated with 3D effect */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
+            initial={{ opacity: 0, x: -20, rotateY: -15 }}
+            animate={{ opacity: 1, x: 0, rotateY: 0 }}
+            transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+            whileHover={{ y: -4 }}
             className="lg:col-span-1"
+            style={{ transformStyle: "preserve-3d", perspective: 1000 }}
           >
-            <div className="sticky top-4">
+            <motion.div className="sticky top-4">
               <ScoresOverview report={report} />
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Main content area */}
@@ -183,31 +231,34 @@ export default function ReportPage() {
           >
             {/* AI Insights Overview with entrance animation */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
             >
               <AIInsightsOverview report={report} />
             </motion.div>
 
             {/* Executive Summary with stagger animation */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
             >
               <ExecutiveSummary report={report} />
             </motion.div>
 
             {/* Analysis Tabs with modern design */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden"
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.7, type: "spring", stiffness: 100 }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="bg-white/80 backdrop-blur-xl rounded-3xl border border-white/50 shadow-2xl shadow-blue-500/10 overflow-hidden"
             >
-              {/* Tab Navigation */}
-              <div className="flex overflow-x-auto border-b border-gray-200 bg-gray-50">
+              {/* Tab Navigation with Glassmorphism */}
+              <div className="flex overflow-x-auto border-b border-gray-100/50 bg-gradient-to-r from-gray-50/80 to-blue-50/40 backdrop-blur-sm">
                 {[
                   { key: 'quality', label: 'Quality', icon: '📊' },
                   { key: 'principles', label: 'Principles', icon: '🏗️' },
@@ -217,24 +268,30 @@ export default function ReportPage() {
                   <motion.button
                     key={tab.key}
                     onClick={() => setActiveTab(tab.key as any)}
-                    className={`relative flex-1 px-6 py-4 font-semibold transition-all whitespace-nowrap ${
+                    className={`relative flex-1 px-6 py-4 font-bold transition-all whitespace-nowrap ${
                       activeTab === tab.key
-                        ? 'text-blue-600 bg-white'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                        ? 'text-blue-600 bg-white/90 backdrop-blur-sm shadow-sm'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
                     }`}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ y: 0 }}
+                    whileHover={{ y: -3, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 + index * 0.1 }}
                   >
-                    <span className="mr-2">{tab.icon}</span>
+                    <motion.span 
+                      className="mr-2 text-xl"
+                      animate={{ rotate: activeTab === tab.key ? [0, 10, -10, 0] : 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {tab.icon}
+                    </motion.span>
                     {tab.label}
                     {activeTab === tab.key && (
                       <motion.div
                         layoutId="activeTab"
-                        className="absolute bottom-0 left-0 right-0 h-1 bg-blue-600"
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg shadow-blue-500/50"
+                        transition={{ type: "spring", stiffness: 500, damping: 35 }}
                       />
                     )}
                   </motion.button>
