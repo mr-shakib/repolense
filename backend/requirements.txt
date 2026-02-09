@@ -2,12 +2,12 @@
 # Install with: pip install -r requirements.txt
 
 # Core Django
-Django==5.0.1
-djangorestframework==3.14.0
-django-cors-headers==4.3.1
+Django==5.1.5
+djangorestframework==3.15.2
+django-cors-headers==4.6.0
 
 # Database
-psycopg[binary]==3.1.18
+psycopg[binary]==3.2.3
 
 # Environment variables
 python-decouple==3.8
@@ -24,9 +24,9 @@ requests==2.31.0
 urllib3<2
 
 # AI/LLM Providers
-groq==1.0.0
-openai==1.10.0
-anthropic==0.8.1
+groq==0.13.0
+openai==1.59.7
+anthropic==0.43.4
 
 # Code Analysis
 radon==6.0.1
@@ -37,23 +37,23 @@ python-dateutil==2.8.2
 
 # Development tools
 django-extensions==3.2.3
-ipython==8.20.0
+ipython==8.31.0
 
 # Testing
-pytest==7.4.4
-pytest-django==4.7.0
-pytest-cov==4.1.0
-factory-boy==3.3.0
+pytest==8.3.4
+pytest-django==4.9.0
+pytest-cov==6.0.0
+factory-boy==3.3.1
 
 # Code quality
-black==24.1.1
-flake8==7.0.0
-mypy==1.8.0
+black==24.10.0
+flake8==7.1.1
+mypy==1.14.1
 isort==5.13.2
 
 # Debugging
-django-debug-toolbar==4.2.0
+django-debug-toolbar==4.4.6
 
 # Production Server
-gunicorn==21.2.0
-whitenoise==6.6.0
+gunicorn==23.0.0
+whitenoise==6.8.2
