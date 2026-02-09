@@ -26,7 +26,7 @@ urllib3<2
 # AI/LLM Providers
 groq==0.13.0
 openai==1.59.7
-anthropic==0.43.4
+anthropic==0.39.0
 
 # Code Analysis
 radon==6.0.1
