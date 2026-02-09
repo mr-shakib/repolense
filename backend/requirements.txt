@@ -14,7 +14,7 @@ python-decouple==3.8
 dj-database-url==2.1.0
 
 # API & Validation
-pydantic==2.5.3
+pydantic==2.10.5
 jsonschema==4.20.0
 
 # GitHub API & Git
