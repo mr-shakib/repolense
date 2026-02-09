@@ -11,7 +11,6 @@ External Calls: Groq API (https://api.groq.com)
 
 import time
 from typing import Optional, Dict, Any
-import httpx
 from groq import Groq, GroqError
 from .base_provider import BaseAIProvider, AIRequest, AIResponse
 from .exceptions import (
@@ -46,7 +45,7 @@ class GroqProvider(BaseAIProvider):
         
         Args:
             api_key: Groq API key (from https://console.groq.com)
-            **kwargs: Optional configuration (timeout, max_retries, default_model, proxies, base_url)
+            **kwargs: Optional configuration (timeout, max_retries, default_model, base_url)
         """
         self.api_key = api_key
         self.timeout = kwargs.get('timeout', self.TIMEOUT_SECONDS)
@@ -62,12 +61,9 @@ class GroqProvider(BaseAIProvider):
         if 'base_url' in kwargs:
             groq_params['base_url'] = kwargs['base_url']
         
-        # Handle proxies by creating a custom httpx client
-        # Note: Groq doesn't accept 'proxies' directly, must use http_client
-        if 'proxies' in kwargs and kwargs['proxies']:
-            proxies = kwargs['proxies']
-            http_client = httpx.Client(proxy=proxies)
-            groq_params['http_client'] = http_client
+        # Note: Removed proxy support as it's not compatible with current Groq SDK
+        # The Groq SDK v1.0.0+ doesn't support custom http_client properly
+        # If proxies are needed, they should be configured at the system level
         
         # Initialize Groq client with proper parameters
         self.client = Groq(**groq_params)
