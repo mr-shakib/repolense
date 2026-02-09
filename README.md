@@ -73,6 +73,19 @@ cd frontend
 npm test
 ```
 
+## 🚀 Deployment
+
+Ready to deploy to production? Follow our step-by-step guide:
+
+**📖 [Complete Deployment Guide](DEPLOYMENT_GUIDE.md)**
+
+**Quick Reference:**
+- **Frontend:** Vercel (Free)
+- **Backend:** Render (Free for 90 days, then $7/month)
+- **Database:** PostgreSQL on Render
+
+See [DEPLOYMENT_QUICKREF.md](DEPLOYMENT_QUICKREF.md) for environment variables and commands.
+
 ## 🤝 Contributing
 
 Before contributing, **READ** [rules.md](rules.md) - all code must follow these standards.

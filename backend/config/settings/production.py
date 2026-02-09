@@ -6,6 +6,7 @@ Security and performance optimizations are enabled.
 """
 
 from .base import *
+import dj_database_url
 
 # Security settings
 DEBUG = False
@@ -26,6 +27,11 @@ SECURE_HSTS_PRELOAD = True
 
 # CORS - Specific origins only
 CORS_ALLOW_ALL_ORIGINS = False
+
+# Database - Use DATABASE_URL from environment (Render provides this)
+database_url = config('DATABASE_URL', default=None)
+if database_url:
+    DATABASES['default'] = dj_database_url.parse(database_url, conn_max_age=600)
 
 # Database connection pooling
 DATABASES['default']['CONN_MAX_AGE'] = 600
